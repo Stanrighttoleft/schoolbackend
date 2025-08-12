@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap 5.2.3 css -->
+     <link rel="stylesheet" href="bootstrap-5.2.3-dist/css/bootstrap.css">
+     <link rel="stylesheet" href="test001.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-bg-primary">col2為正常位置</div>
+            <div class="col-md-4 offset-1 text-bg-primary">col2為正常位置</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-3 offset-3 text-bg-success">col3為偏移3位置</div>
+            <div class="col-3 offset-1 text-bg-warning">col3為偏移3位置</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6 offset-4 text-bg-dark">col6偏移4位置</div>
+            <div class="col-sm-4 bg-info">col4正常位置/div>
+        </div>
+
+        
+    </div>
+    <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 offset-2 bg-primary">col3為徧移2位置</div>
+            <div class="col-lg-1 offset-2 bg-dark text-white">為col1為徧移2位置</div>
+            <div class="col-lg-1 bg-warning">col1為正常位置</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-5 offset-1 bg-danger">col5為徧移1位置</div>
+            <div class="col-sm-1 offset-5 bg-info">col1為徧移5位置</div>
+            <div class="col-sm-6 offset-4 bg-warning">col6為徧移4位</div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap-5.2.3-dist/bootstrap.bundle.js"></script>
+    
+    
+</body>
+</html>

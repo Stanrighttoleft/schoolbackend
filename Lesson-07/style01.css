@@ -1,0 +1,57 @@
+@charset "UTF-8";
+.header {
+  width: 800px;
+  height: 52px;
+  background-color: #81dd18;
+  display: flex;
+  margin-bottom: 1rem;
+}
+.header a {
+  color: aqua;
+  text-decoration: none;
+  /* &符號用來連結父層選擇器,常用在虛類別如:hover :focus */
+}
+.header a:hover {
+  color: rgb(14, 1, 1);
+  text-decoration: underline;
+}
+
+.content {
+  width: 800px;
+  background-color: coral;
+  color: #fff;
+}
+
+.content a {
+  color: white;
+  text-decoration: none;
+}
+
+.content a:hover {
+  color: #fbf97a;
+  text-decoration: line-through;
+}
+
+.footer {
+  width: 800px;
+  height: 152px;
+  background-color: #057b99;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
+}
+
+.footer a {
+  color: #aef55d;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: white;
+  text-decoration: underline;
+  font-weight: bolder;
+}/*# sourceMappingURL=style01.css.map */

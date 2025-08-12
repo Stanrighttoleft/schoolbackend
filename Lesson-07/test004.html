@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap 5.2.3 css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="test002.css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <script type="text/javascript">
+        //設定元件閃爍特效
+        //effectFadeTo(哪一個物件,特效時間,透明度起始,透明度結束)
+        function effectFadeTo(targetElement, duration, from, to) {
+            //淡化透明度的值
+            $(targetElement).fadeTo(duration / 2, from);
+            $(targetElement).fadeTo(duration / 2, to);
+        }
+
+        //$(function(){})網頁載入完成後,即進入功能函數內執行
+        $(function () {
+            $(".card img").on({
+                mouseover: function () { effectFadeTo(this, 2000, 0.2, 1); }
+            });
+            $(".card p").on({
+                mouseover: function () { effectFadeTo(this, 2000, 0.2, 1); }
+            });
+            $(".card h5").on({
+                mouseover: function () { effectFadeTo(this, 2000, 0.2, 1); }
+            });
+            $(".card button").on({
+                mouseover: function () { effectFadeTo(this, 2000, 0.2, 1); }
+            });
+           
+        })
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <a
+                            href="https://www.australia.com/zh-tw/things-to-do/adventure-and-sports/australias-best-snorkelling-spots.html"><img
+                                src="imagework/1.webp" class="d-block w-100" alt="浮潛"
+                                style="width: 1920px; height: 1080px;"></a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>浮潛</h5>
+                            <p>澳洲擁有各式各樣的海洋寶藏</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <a
+                            href="https://www.australia.com/zh-tw/things-to-do/food-and-drinks/australias-best-breweries.html">
+                            <img src="imagework/2.webp" class="d-block w-100" alt="澳洲酒廠"
+                                style="width: 1920px; height: 1080px;">
+                        </a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>澳洲酒廠</h5>
+                            <p>在評價最高的啤酒廠感受澳洲人對手工精釀啤酒的熱誠。</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <a
+                            href="https://www.australia.com/zh-tw/things-to-do/nature-and-national-parks/australias-top-natural-attractions.html">
+                            <img src="imagework/3.webp" class="d-block w-100" alt="烏魯魯巨岩"
+                                style="width: 1920px; height: 1080px;">
+                        </a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>烏魯魯巨岩</h5>
+                            <p>聳立的瀑布、像吹波糖般粉紅色的湖以及大堡礁 — 這只是澳洲著名自然景點的其中一部分，都在等著您來探索。</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="row ">
+            <div class="card col-md-12">
+                <img src="imagework/1a.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">海龍島</h5>
+                    <p class="card-text">穿好裝備，出發尋找鮮藍色海星和巨型海參的蹤影，來一場令人興奮不已的旅程。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：昆士蘭州南大堡礁</li>
+                    <li class="list-group-item">乘坐遊船或直升機前往小島</li>
+                    <li class="list-group-item">海龍島海洋中心穿好裝備</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool"
+                        href="https://www.australia.com/zh-tw/places/brisbane-and-surrounds/guide-to-heron-island.html"
+                        class="card-link">海龍島指南</a>
+                    <button class="ms-5 btn btn-info text-white">加入購物車</button>
+                    
+
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <img src="imagework/1b.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">寧格魯珊瑚礁</h5>
+                    <p class="card-text">如果您在3月下旬至7月下旬前來，別忘了觀賞優雅的魔鬼魚、海龜，甚至還有鯨鯊。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：西澳州埃克斯茅斯</li>
+                    <li class="list-group-item">在埃克斯茅斯（Exmouth）留宿</li>
+                    <li class="list-group-item">參加Ningaloo Reef Dive的導賞團出海探索珊瑚礁</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool"
+                        href="https://www.australia.com/zh-tw/places/perth-and-surrounds/guide-to-ningaloo-reef.html"
+                        class="card-link">寧格魯珊瑚礁指南</a>
+                        <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <img src="imagework/1c.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">豪勳爵島</h5>
+                    <p class="card-text">如果您在3月下旬至7月下旬前來，別忘了觀賞優雅的魔鬼魚、海龜，甚至還有鯨鯊。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：新南威爾士州悉尼附近</li>
+                    <li class="list-group-item">距離悉尼（Sydney）兩小時飛行航程</li>
+                    <li class="list-group-item">島每次只容許400位旅客登島，島的四周海岸遍佈不同浮潛熱點</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool"
+                        href="https://www.australia.com/zh-tw/places/sydney-and-surrounds/guide-to-lord-howe-island.html"
+                        class="card-link">豪勳爵島指南</a>
+                        <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <img src="imagework/2c.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">烏魯魯和卡塔丘塔</h5>
+                    <p class="card-text">這些巨石在平坦的地形上拔地而起，單是體積已令人讃嘆不已。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：紅土中心</li>
+                    <li class="list-group-item">烏魯魯-卡塔丘塔國家公園</li>
+                    <li class="list-group-item">但真正令人難以忘懷的，是這些神聖之地充滿靈性的氣息和背後豐富的原住民歷史。</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool"
+                        href="https://www.australia.com/zh-tw/places/alice-springs-and-surrounds/guide-to-uluru-and-kata-tjuta.html"
+                        class="card-link">烏魯魯和卡塔丘塔指南</a>
+                        <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <img src="imagework/2a.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">大堡礁</h5>
+                    <p class="card-text">除了海底世界外，大堡礁周圍亦遍佈美麗如畫的熱帶島嶼，還有世上數一數二和陽光燦爛的絕美海灘</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：凱恩斯</li>
+                    <li class="list-group-item">距離布里斯本一小時飛行航程</li>
+                    <li class="list-group-item">是全球最大的珊瑚礁系統，匯聚了豐富多元的海洋生物</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool"
+                        href="https://www.australia.com/zh-tw/places/cairns-and-surrounds/guide-to-the-great-barrier-reef.html"
+                        class="card-link">大堡礁指南</a>
+                        <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <img src="imagework/2b.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">艾爾湖</h5>
+                    <p class="card-text">想欣賞這片粉紅色美景的話，最好辦法是參加從地底澳寶採礦鎮庫伯佩地（Coober Pedy）出發的Wrightsair觀光飛機半日遊。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：南澳</li>
+                    <li class="list-group-item">觀光飛機半日遊</li>
+                    <li class="list-group-item">這湖是個閃亮粉紅色、乾涸的鹽河床。但每隔數年都會下一場大雨把它變成一個令人驚艷的美麗湖泊。</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool"
+                        href="https://www.australia.com/zh-tw/things-to-do/nature-and-national-parks/australias-pink-lakes.html"
+                        class="card-link">澳洲的粉紅湖指南</a>
+                        <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+            <div class="card col-md-6 bg-light">
+                <img src="imagework/3a.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">Felons Brewing Co</h5>
+                    <p class="card-text">立即約齊您的朋友，在布里斯本河（Brisbane River）河畔享受這座城市最清爽的啤酒。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：布里斯本</li>
+                    <li class="list-group-item">Felons Brewing啤酒廠隱藏於故事橋</li>
+                    <li class="list-group-item">此啤酒廠的食材大部分在當地採購，難怪他們的艾爾淡啤酒大受歡迎。</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool" href="https://felonsbrewingco.com.au/" class="card-link">重罪釀造指南</a>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <img src="imagework/3b.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">海明威啤酒廠</h5>
+                    <p class="card-text">在大堡礁（Great Barrier Reef）整日浮潛後，可休息下來品嚐他們的啤酒，並聆聽講述精彩歷史的「啤酒故事」。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：道格拉斯港</li>
+                    <li class="list-group-item">道格拉斯港（Port Douglas）和開恩茲（Cairns）的海濱均有營業</li>
+                    <li class="list-group-item">當您身在熱帶地區時，還有什麼比一杯冰鎮啤酒更醒神？</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool" href="https://www.hemingwaysbrewery.com/" class="card-link">海明威指南</a>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <img src="imagework/3c.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title bg-warning text-white w-100">BentSpoke Brewing Co.啤酒廠</h5>
+                    <p class="card-text">啤酒廠的特別之處，就是採用具環保意識的系統營運，倡導多種可持續發展運作方式。</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地點：坎培拉</li>
+                    <li class="list-group-item">現代化的BentSpoke啤酒廠位於坎培拉（Canberra）</li>
+                    <li class="list-group-item">以別具冒險精神而聞名，供應屢獲殊榮的啤酒，讓人愛不釋手。提供焦糖紅堅果IPA及紅桑子小麥啤酒等，款式應有盡有。</li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-cool" href="https://www.bentspokebrewing.com.au/"
+                        class="card-link">BentSpoke指南</a>
+                        <button class="float-end btn btn-info text-white">加入購物車</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- bootstrap5.2.3 javascript file -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
