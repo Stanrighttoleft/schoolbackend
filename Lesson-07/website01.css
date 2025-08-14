@@ -1,0 +1,64 @@
+.btn-purple {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: purple;
+  --bs-btn-border-color: purple;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #d551f8;
+  --bs-btn-hover-border-color: #b42ec1;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #b42ec1;
+  --bs-btn-active-border-color: #6c088c;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: purple;
+  --bs-btn-disabled-border-color: #6c088c;
+}
+
+
+#video-background,.vplay iframe{
+    width: auto;
+    height: auto;;
+    min-width: 100%;
+    min-height: 100%;
+    position: fixed;
+     top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+.video-caption{
+    margin-top: 20%;
+}
+.video-caption.text-center h1{
+    color: #fff;
+    font-family: sans-serif,Arial, Helvetica;
+    font-weight: bolder;
+    font-size: 40px;
+}
+.margintop-30{
+    margin-top: 30px;
+
+}
+.margintop-30 .btn.btn-warning{
+    color: white;
+}
+.jumbotron{
+    color: white;
+    background-image: url('images/pic51.jpg');
+    background-attachment: fixed;
+    margin-top: 0;
+    margin-bottom: 10px;
+    min-height: 1365px;
+    min-width: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding:4rem 2rem 4rem 2rem;
+
+
+}
+body{
+    font-family: "微軟正黑體",Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}

@@ -1,24 +1,19 @@
 @charset "UTF-8";
+/*取消程式結尾的分號  ;設定,取消 {}   括號的程式範圍設定*/
 .header {
   width: 800px;
   height: 52px;
-  background-color: rgb(153.6775510204, 234.0367346939, 61.9632653061);
+  background-color: #81dd18;
   display: flex;
   margin-bottom: 1rem;
-}
-.header a {
-  color: aqua;
   text-decoration: none;
   /* &符號用來連結父層選擇器,常用在虛類別如:hover :focus */
-}
-.header a:hover {
   color: rgb(14, 1, 1);
   text-decoration: underline;
 }
-
 .content {
   width: 800px;
-  background-color: darkne coral, 10%;
+  background-color: coral;
   color: rgb(14, 1, 1);
 }
 .content a {
@@ -50,4 +45,4 @@
   color: white;
   text-decoration: underline;
   font-weight: bolder;
-}/*# sourceMappingURL=style01.css.map */
+}/*# sourceMappingURL=style02.css.map */

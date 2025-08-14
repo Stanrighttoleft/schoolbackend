@@ -1,0 +1,58 @@
+.header{
+
+    width: $w800;
+    height: $h52;
+    background-color:lighten($fbcolor,10%);
+    display: flex;
+    margin-bottom: 1rem;
+    a{
+    color:aqua;
+    text-decoration: none;
+    /* &符號用來連結父層選擇器,常用在虛類別如:hover :focus */
+    &:hover{
+    color: $wcolor;
+    text-decoration: underline;
+}
+
+    }
+    
+}
+
+
+.content{
+    width: $w800;
+    background-color:darkne (coral,10%);
+    color: $wcolor;
+    a{
+    color: $wcolor;
+    text-decoration: none;
+        &:hover{
+            color:#fbf97a;
+            text-decoration: line-through;
+
+}
+}
+}
+
+.footer{
+    width: $w800;
+    // SCSS變數使用時可以直接進行運算，計算作為參數控制
+    height: $h52+100;
+    background-color: #057b99;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch; 
+    a{
+        color: #aef55d;
+        text-decoration: none;
+        &:hover{
+            color: white;
+            text-decoration: underline;
+            font-weight: bolder;
+}
+}
+}
