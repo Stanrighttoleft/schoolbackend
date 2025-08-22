@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="test002.css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
+    <script src="gottop.js"></script>
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="./animate.compat.css">
     <script type="text/javascript">
@@ -35,13 +36,170 @@
             $(".card button").on({
                 mouseover: function () { effectFadeTo(this, 2000, 0.2, 1); }
             });
-           
+
         })
     </script>
     <title>Document</title>
 </head>
 
 <body>
+    <section id="navigation">
+        <nav class="navbar navbar-expand-lg  navbar-light fixed-top bg-warning">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#navigation">
+                    <!-- <i class="fas fa-spider fa-2x fa-spin fa-fw" style="color:black;  margin-top:5px; margin-left:5px"></i> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mt-3 mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="index.php" class="nav-link"><img style="height: 70px;" src="travel.png" alt="logo"
+                                    class="img-fluid"></a>
+                        </li>
+                        <li class="nav-item dropdown ms-5">
+                            <a class="nav-link dropdown-toggle" href="#" aria-expanded="false">
+                                景點介紹
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item dropend ">
+                                    <a class="dropdown-item dropdown-toggle" href="#">
+                                        新南威爾斯
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="dropdown-item">雪梨</a></li>
+                                        <li><a href="#" class="dropdown-item">臥龍崗</a></li>
+                                        <li><a href="#" class="dropdown-item">紐卡索</a></li>
+                                    </ul>
+
+                                </li>
+                                <li class="nav-item dropend ">
+                                    <a class="dropdown-item dropdown-toggle" href="#">
+                                        維多利亞
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="dropdown-item">墨爾本</a></li>
+                                        <li><a href="#" class="dropdown-item">夏普頓</a></li>
+                                        <li><a href="#" class="dropdown-item">米杜拉</a></li>
+                                    </ul>
+
+                                </li>
+                                <li class="nav-item dropend ">
+                                    <a class="dropdown-item dropdown-toggle" href="#">
+                                        昆士蘭
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="dropdown-item">布里斯本</a></li>
+                                        <li class="nav-item dropend"><a href="#"
+                                                class="dropdown-item dropdown-toggle">凱恩斯</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#island" class="dropdown-item">海龍島</a></li>
+                                                <li><a href="#coral" class="dropdown-item">寧格魯珊瑚礁</a></li>
+                                                <li><a href="#reef" class="dropdown-item">大堡礁</a></li>
+                                            </ul>
+
+                                        </li>
+                                        <li><a href="#" class="dropdown-item">黃金海岸</a></li>
+                                    </ul>
+
+                                </li>
+                                <li class="nav-item dropend ">
+                                    <a class="dropdown-item dropdown-toggle" href="#">
+                                        北領地
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="dropdown-item">達爾文</a></li>
+                                        <li><a href="#" class="dropdown-item">愛麗絲泉</a></li>
+
+                                    </ul>
+
+                                </li>
+                                <li class="nav-item dropend ">
+                                    <a class="dropdown-item dropdown-toggle" href="#">
+                                        南澳
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="dropdown-item">阿德雷德</a></li>
+                                        <li><a href="#" class="dropdown-item">林肯港</a></li>
+
+                                    </ul>
+
+                                </li>
+                                <li class="nav-item dropend ">
+                                    <a class="dropdown-item dropdown-toggle" href="#">
+                                        西澳
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="dropdown-item">伯斯</a></li>
+
+                                    </ul>
+
+                                </li>
+                                <li class="nav-item dropend ">
+                                    <a class="dropdown-item dropdown-toggle" href="#">
+                                        塔斯馬尼亞
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="dropdown-item">霍巴特</a></li>
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#production">美圖秀秀</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sportlogo">產品介紹</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#buyrules">限時優惠</a>
+                        </li>
+
+                        <li class="nav-item dropdown me-5">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false">
+                                會員中心
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">登入</a></li>
+                                <hr class="dropdown-divider">
+                                <li><a class="dropdown-item" href="#">退訂／退款查詢</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">訂單查詢</a></li>
+                                <hr class="dropdown-divider">
+                                <li class="nav-item dropend"><a class="dropdown-item dropdown-toggle " href="#">會員狀態</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" class="dropdown-item">會員獨享</a></li>
+                                        <li><a href="" class="dropdown-item">紅利回饋</a></li>
+                                        <li><a href="" class="dropdown-item">現金折扣</a></li>
+                                    </ul>
+
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+    </section>
     <div class="container-fluid">
         <div class="row">
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000">
@@ -101,9 +259,9 @@
         </div>
         <hr>
         <div class="row ">
-            <div class="card col-md-12 animated bounceInDown infinite">
+            <div class="card col-md-12 animated bounceInDown ">
                 <img src="imagework/1a.webp" class="card-img-top animated wobble" alt="...">
-                <div class="card-body">
+                <div class="card-body" id="island">
                     <h5 class="card-title bg-warning text-white w-100">海龍島</h5>
                     <p class="card-text">穿好裝備，出發尋找鮮藍色海星和巨型海參的蹤影，來一場令人興奮不已的旅程。</p>
                 </div>
@@ -117,13 +275,13 @@
                         href="https://www.australia.com/zh-tw/places/brisbane-and-surrounds/guide-to-heron-island.html"
                         class="card-link">海龍島指南</a>
                     <button class="ms-5 btn btn-info text-white">加入購物車</button>
-                    
+
 
                 </div>
             </div>
             <div class="card col-md-6">
                 <img src="imagework/1b.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
+                <div class="card-body" id="coral">
                     <h5 class="card-title bg-warning text-white w-100">寧格魯珊瑚礁</h5>
                     <p class="card-text">如果您在3月下旬至7月下旬前來，別忘了觀賞優雅的魔鬼魚、海龜，甚至還有鯨鯊。</p>
                 </div>
@@ -136,7 +294,7 @@
                     <a class="btn btn-cool"
                         href="https://www.australia.com/zh-tw/places/perth-and-surrounds/guide-to-ningaloo-reef.html"
                         class="card-link">寧格魯珊瑚礁指南</a>
-                        <button class="float-end btn btn-info text-white">加入購物車</button>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
 
                 </div>
             </div>
@@ -155,7 +313,7 @@
                     <a class="btn btn-cool"
                         href="https://www.australia.com/zh-tw/places/sydney-and-surrounds/guide-to-lord-howe-island.html"
                         class="card-link">豪勳爵島指南</a>
-                        <button class="float-end btn btn-info text-white">加入購物車</button>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
 
                 </div>
             </div>
@@ -174,11 +332,11 @@
                     <a class="btn btn-cool"
                         href="https://www.australia.com/zh-tw/places/alice-springs-and-surrounds/guide-to-uluru-and-kata-tjuta.html"
                         class="card-link">烏魯魯和卡塔丘塔指南</a>
-                        <button class="float-end btn btn-info text-white">加入購物車</button>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
 
                 </div>
             </div>
-            <div class="card col-md-6">
+            <div class="card col-md-6" id="reef">
                 <img src="imagework/2a.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title bg-warning text-white w-100">大堡礁</h5>
@@ -193,7 +351,7 @@
                     <a class="btn btn-cool"
                         href="https://www.australia.com/zh-tw/places/cairns-and-surrounds/guide-to-the-great-barrier-reef.html"
                         class="card-link">大堡礁指南</a>
-                        <button class="float-end btn btn-info text-white">加入購物車</button>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
 
                 </div>
             </div>
@@ -212,7 +370,7 @@
                     <a class="btn btn-cool"
                         href="https://www.australia.com/zh-tw/things-to-do/nature-and-national-parks/australias-pink-lakes.html"
                         class="card-link">澳洲的粉紅湖指南</a>
-                        <button class="float-end btn btn-info text-white">加入購物車</button>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
 
                 </div>
             </div>
@@ -264,7 +422,7 @@
                 <div class="card-body">
                     <a class="btn btn-cool" href="https://www.bentspokebrewing.com.au/"
                         class="card-link">BentSpoke指南</a>
-                        <button class="float-end btn btn-info text-white">加入購物車</button>
+                    <button class="float-end btn btn-info text-white">加入購物車</button>
 
                 </div>
             </div>

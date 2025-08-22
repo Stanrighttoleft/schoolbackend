@@ -23,3 +23,26 @@
   --bs-btn-disabled-bg: orange;
   --bs-btn-disabled-border-color: yellow;
 }
+.navbar-nav .nav-item img{
+    margin-top: -15px;
+    margin-right: 10px;
+
+}
+.dropdown:hover>.dropdown-menu,
+.dropend:hover>.dropdown-menu{
+    display:block;
+    margin: 0.125em 80% 0 0.125em;
+    /* margin-top: 0.125em;
+    margin-left: 0.125em;
+    margin-right: 80%; */
+}
+.dropdown .dropdown-menu{
+    display: none;
+}
+@media screen and (min-width:993px){
+    .dropend:hover>.dropdown-menu{
+        position: absolute;
+        top: 0;
+        left: 100%;
+    }
+}
