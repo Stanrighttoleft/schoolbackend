@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a; //宣告a為變數，不設定值
+        var a01=100; //宣告a01為變數，並設定預測值
+        let b01=400;
+        document.write("<h1>設定變數A，沒有設定值為"+a+"</h1>");
+        document.write("<h1>設定變數a01="+a01+"</h1>")
+        document.write("<br>");
+        showVar();
+        b01=b01+200; //函數區域內宣告變數b01在外面測試算累加200
+        document.write("<h1>b01="+b01+"</h1>");
+        const c01="c01這是常數的宣告值，宣告後無法更改";
+        document.write("<h1>"+c01+"</h1>");
+        c01="更改c01這是變數的內容文字";
+        document.write("<h1>"+c01+"</h1>")
+
+        function showVar(){
+            a01=a01+200;
+            document.write("<h1>在函數內使用變數a01+200="+a01+"</h1>");
+            // let b01=800;
+            b01+=400;
+            //let函數區域內宣告變數
+            document.write("<h1>在函數內使用let宣告變數b01="+b01+"</h1>")
+        }
+
+
+    </script>
+    <script>
+        document.write("Hello World");
+        document.write("good moring");
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="comlib.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <script lang="javascript">
+        let name="漢堡自由";
+        let seat=rand(1,30);
+        let age=rand(1,50);
+        let tall="171.5";
+        let student=false;
+        let interest="watch movie,music,play vedio game, badminton, hiking"; //興趣
+        let want="master programming language and undertand how to use loop";          //希望在JS課得到甚麼
+        let score=[70,80,90];
+        let monthes=27;
+        let mobile={
+            tel:"0912345678",
+            os:"android",
+            brand:"sony",
+            size:"6.5inch",
+
+        };
+        let monthes1=document.getElementById('inputmonth')
+
+        //使用年齡,目前月份,計算幾個月後變數，產生計算後的年齡與月份
+        function countAge(age, nowMonths, cmonths){
+            let newYear=Math.floor((nowMonths+cmonths)/12);
+            let newMonth=(nowMonths+cmonths)%12;
+            return(age+newYear+"歲，又"+newMonth+"個月")
+        }
+
+        //自訂範圍min到max之間的亂數產生函數
+        //min亂數最小範圍,max亂數最大範圍
+
+        
+
+
+    </script>
+
+    <label for="month">輸入月份</label>
+    <input type="number" id="inputmonth">
+    <br>
+    <br>
+    <table border="1">
+        <tr>
+            <td>姓名</td>
+            <td><script>document.write(name);</script></td>
+            <td><script>document.write(typeof(name));</script></td>
+        </tr>
+        <tr>
+            <td>座號</td>
+            <td><script>document.write(seat);</script></td>
+            <td><script>document.write(typeof(seat));</script></td>
+        </tr>
+        <tr>
+            <td>學生座號：<script>document.write(seat);</script></td>
+            <td>
+               教室位置為第<script>document.write(arrangeseatrow(seat));</script>排第<script>document.write(arrangeseat(seat));</script>位
+            </td>
+            <td><script>document.write(typeof(seat));</script></td>
+        </tr>
+        <tr>
+            <td>年齡</td>
+            <td><script>document.write(age);</script></td>
+            <td><script>document.write(typeof(age));</script></td>
+        </tr>
+        <tr>
+            <td>目前年齡<script>document.write(age+'歲又6個月，');document.write(`計算${monthes}個月之後為幾歲幾個月`);</script></td>
+            <td><script>document.write(countAge(age,6,27))</script></td>
+            <td><script>document.write(typeof(age));</script></td>
+        </tr>
+        <tr>
+            <td>身高</td>
+            <td><script>document.write(tall);</script></td>
+            <td><script>document.write(typeof(tall));</script></td>
+        </tr>
+        <tr>
+            <td>是否在學</td>
+            <td><script>document.write(student);</script></td>
+            <td><script>document.write(typeof(student));</script></td>
+        </tr>
+        <tr>
+            <td>興趣</td>
+            <td bgcolor="green"><script>document.write(interest);</script></td>
+            <td><script>document.write(typeof(interest));</script></td>
+        </tr>
+        <tr>
+            <td>希望在JS課得到甚麼</td>
+            <td><script>document.write(want);</script></td>
+            <td><script>document.write(typeof(want));</script></td>
+        </tr>
+        <tr>
+            <td>成績</td>
+            <td>
+                <table border="1" bordercolor="green">
+                    <tr>
+                        <td>國文</td>
+                        <td>英文</td>
+                        <td>數學</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <script>document.write(score[0]);</script>
+                        </td>
+                        <td>
+                            <script>document.write(score[1]);</script>
+                        </td>
+                        <td>
+                            <script>document.write(score[2]);</script>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <script>document.write(typeof(score));</script>
+            </td>
+        </tr>
+        <tr>
+            <td>使用手機規格</td>
+            <td>
+                <table border="1" bordercolor="blue">
+                    <tr>
+                        <td>電話 </td>
+                        <td>系統</td>
+                        <td>品牌</td>
+                        <td>大小</td>
+                        
+                    </tr>
+                    <tr>
+                        <td><script>document.write(mobile.tel);</script></td>
+                        <td><script>document.write(mobile.os);</script></td>
+                        <td><script>document.write(mobile.brand);</script></td>
+                        <td><script>document.write(mobile.size);</script></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <script>document.write(typeof(mobile));</script>
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
