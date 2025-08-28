@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="comlib.js"></script>
+</head>
+<body>
+    <p id="lottery" name="lottery" style="font-size:100px;">1</p>
+    <button type="button" id="btn01" name="btn01" onclick="getPrize();">抽獎</button>
+
+    <script>
+        var count=0;  //預設計數器設為0
+        function getPrize(){
+            if(count<30){
+                let lottery=document.getElementById("lottery");//選擇ID=lottery元件
+                lottery.innerText=rand(1,4);//隨機亂數填入p#lottery內容
+                window.setTimeout("getPrize()",100);
+                //每隔100ms再次呼叫getPrize()
+                count++
+            }else{
+                console.log(new Array(lottery));
+                count=0;
+                //取得lottery.innerText的內容,判斷得到哪個獎項
+                switch(lottery.innerText){
+                    case "1":
+                        window.alert("恭喜!抽種第一獎：禮券10000元");
+                        break;
+                    case "2":
+                        window.alert("恭喜!抽種第二獎：禮券1000元");
+                        break;
+                    case "3":
+                        window.alert("恭喜!抽種第三獎：禮券500元");
+                        break;
+                    default:
+                        window.alert("恭喜!抽中普獎：禮券100元")
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>

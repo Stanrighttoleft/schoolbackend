@@ -1,4 +1,10 @@
 <?php
+session_set_cookie_params([
+    'path' => '/',
+    'samesite' => 'None',   // <- Required for cross-origin cookies
+    'secure' => false,      // <- Must be true in HTTPS, false in localhost
+    'httponly' => true,
+]);
 session_start();
 header('Content-Type: application/json');
 include_once(__DIR__ . "/../important/db.php");

@@ -12,7 +12,7 @@ function rand(min, max){
             return 最大返回10, Math.floor(0.9*(10-5+1)+5)
              */
         }
-/* function arrangeseatrow(seat){
+function arrangeseatrow(seat){
     if(seat<17){
         row=Math.floor(seat/8);
         if(row===(seat/8)){
@@ -46,24 +46,24 @@ function arrangeseat(seat){
         }
         return place;
     }
-} */
+} 
+ 
+// 老師的解答
 
-老師的解答
-
-function setSeat(number){
-    if(number===17){
-        newRow=4;
-        newCol=8;
-    }
-    if(number>=17){
-        number++
-    }
-    newRow=Math.ceil(number/8);
-    if((number%8)==0){
-        newCol=8
-    }else{
-        newCol=(number%8)
-    }
-    return("教室位置為"+newRow+"排，第"+newCol+"位")
+// function setSeat(number){
+//     if(number===17){
+//         newRow=4;
+//         newCol=8;
+//     }
+//     if(number>=17){
+//         number++
+//     }
+//     newRow=Math.ceil(number/8);
+//     if((number%8)==0){
+//         newCol=8
+//     }else{
+//         newCol=(number%8)
+//     }
+//     return("教室位置為"+newRow+"排，第"+newCol+"位")
     
-}
+// }
