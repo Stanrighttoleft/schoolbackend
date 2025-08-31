@@ -39,21 +39,34 @@
         }
         let sum=sumscore();
         let avgscore=sum/score.length;
-        let oldscore=[70,80,50];
-        let nature=rand(1,100);
-        let socialty=rand(1,100);
-        oldscore.splice(1,0,nature);
-        oldscore.splice(3,0,socialty);
+        let oldscore=[90,100,100];
+        
 
-        const averagescore=()=>{
+        const modifiedscore=(oldscore)=>{
+            let nature=rand(1,100);
+            let socialty=rand(1,100);
+            oldscore.splice(1,0,nature);
+            oldscore.splice(3,0,socialty);
             
             let sum=0;
             for(let i=0; i<oldscore.length;i++){
-                sum+=oldscore[i]
+                sum+=oldscore[i];
             }
-            return sum/oldscore.length;
+            averagevalue=sum/oldscore.length;
+            oldscore.push(averagevalue);
+            return oldscore;
         };
-        let theaveragescore=averagescore();
+        let newscore=modifiedscore(oldscore);
+        //改成績的顏色
+        const colorScore=(score)=>{
+            if(score>=90){
+                document.write(`<td style="color:white; background-color:blue;">${score}</td>`)
+            }else if(score<60){
+                document.write(`<td style="color:red;">*${score}</td>`)
+            }else{
+                document.write(`<td style="color:green;">${score}</td>`)
+            }
+        }
 
         console.log(score);
         let monthes=27;
@@ -147,29 +160,30 @@
                     </tr>
                     <tr>
                         <td>
-                            <script>document.write(oldscore[0]);</script>
+                            <script>document.write(newscore[0]);</script>
                         </td>
                         <td>
-                            <script>document.write(oldscore[1]);</script>
+                            <script>document.write(newscore[1]);</script>
                         </td>
                         <td>
-                            <script>document.write(oldscore[2]);</script>
+                            <script>document.write(newscore[2]);</script>
                         </td>
                         <td>
-                            <script>document.write(oldscore[3]);</script>
+                            <script>document.write(newscore[3]);</script>
                         </td>
                         <td>
-                            <script>document.write(oldscore[4]);</script>
+                            <script>document.write(newscore[4]);</script>
                         </td>
-                        <td>
-                            <script>document.write(theaveragescore);</script>
-                        </td>
+                        <script>
+                            colorScore(newscore[5]);
+                        </script>
 
                     </tr>
                 </table>
             </td>
             <td>
-                <script>document.write(typeof(score));</script>
+                <script>document.write(typeof(score));
+                </script>
             </td>
         </tr>
         <tr>
