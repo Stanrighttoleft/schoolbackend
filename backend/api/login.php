@@ -1,8 +1,19 @@
 <?php
-session_start();
+
 header('Content-Type: application/json');
 include_once(__DIR__ . "/../important/db.php");
 include_once(__DIR__ . "/../important/cors.php");
+
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'domain' => '',      // leave blank for current domain
+    'secure' => false,   // true if using HTTPS
+    'httponly' => true,
+    'samesite' => 'Lax' // important for cross-origin cookies
+]);
+
+session_start();
 
 // Get JSON POST body
 $data = json_decode(file_get_contents("php://input"));

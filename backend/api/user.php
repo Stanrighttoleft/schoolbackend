@@ -1,8 +1,18 @@
 <?php
-session_start();
 header('Content-Type: application/json');
 include('../important/db.php');
 include_once(__DIR__ . "/../important/cors.php");
+
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'domain' => '',      // leave blank for current domain
+    'secure' => false,   // true if using HTTPS
+    'httponly' => true,
+    'samesite' => 'Lax' // important for cross-origin cookies
+]);
+
+session_start();
 
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['user' => null]);
