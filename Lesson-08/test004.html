@@ -7,6 +7,140 @@
     <script src="comlib.js"></script>
 </head>
 <body>
+    <script>
+        //for 遞減迴圈測試
+        var total=0;
+        for(let i=60; i>=20;i--){
+            
+            document.write(total+"+"+i+"=");
+            total+=i;
+            document.write(total+"<br>")
+        }
+        document.write("for遞減迴圈測試從60加到20="+total+"<br>")
+    </script>
+    <hr>
+    <script>
+        var total=0;
+        for(let i=6;i<=15;i++){
+            if((i%2)==0){
+                document.write("|"+total+"+"+i+"=");
+
+            }else{
+                document.write("|"+total+"+<span style='color:blue'>*"+i+"</span>");
+            }
+            total=total+i;
+            document.write(total);
+        }
+        document.write("|<br>for遞增迴圈測試從6加到15="+total+"<br>");
+        //for遞增迴圈測試
+        /* var total=0;
+        for (let i=6; i<=15;i++){
+            let betotal=total;
+            total+=i; 
+            if((i%2)==0){
+                document.write('|'+betotal+'+'+i+'='+total);
+            }else if(i==15){
+                document.write('|'+betotal+'+'+'<span style="color:blue;">*'+i+'</span>'+'='+total+'|')
+
+            }
+            else{
+                document.write('|'+betotal+'+'+'<span style="color:blue;">*'+i+'</span>'+'='+total)
+
+            }
+                      
+        }
+        document.write("<br>for遞增迴圈測試從6加到15="+total+"<br>"); */
+    </script>
+    <hr>
+    <div id="clock"></div>
+
+    <script>
+        const clock=document.getElementById("clock");
+        let hour=rand(0,23);
+        let min=rand(0,59);
+        let sec=rand(0,59);
+        let str=(hour>=12) ?"PM" :"AM";
+        let displayhour=(hour>12) ? hour-12: hour;
+        
+        
+
+        
+
+        const runTimer=()=>{
+            let str=(hour>=12) ?"PM" :"AM";
+            let displayhour=(hour>12) ? hour-12: hour;
+
+            if(sec==0){
+                sec=59;
+                if(min==0){
+                    min=59;
+                    hour--;
+                }else{
+                    min--;
+                }
+            }else{
+                sec--;
+            }
+            //這是遞增函數
+            /* if(sec==59){
+                sec=0;
+                if(min==59){
+                    min=0;
+                    hour++;
+                }else{
+                    min++;
+                }
+            }else{
+                sec++;
+            } */
+            clock.innerHTML="<h1>產生亂數時間"+addZero(displayhour)+":"+addZero(min)+":"+addZero(sec)+str+"</h1>";
+            window.setTimeout(runTimer,1000)
+            
+        }
+        runTimer();
+        
+    </script>
+    
+
+
+
+
+
+    <!-- <div id="clock"></div>
+    <script type="text/javascript">
+        
+        var hour=rand(0,23);
+        var min=rand(0,59);
+        var sec=rand(0,59);
+        function addZero(x){
+            return((x<10) ?"0"+x :x);
+        }
+        const timer=()=>{
+
+        //使用單行條件判斷
+        var str=(hour>=12)?"PM":"AM";
+        var displayhour=(hour>12)? hour-12:hour;
+        const clock=document.getElementById('clock');
+        clock.innerHTML="<h1>產生亂數時間："+addZero(displayhour)+":"+addZero(min)+":"+addZero(sec)+ str+"</h1>";
+        
+        //傳入1-9之間，自動補01-09        
+        sec++;
+        if(sec >=60){
+            sec=0;
+            min++;
+            if(min>=60){
+                min=0;
+                hour++;
+                if(hour>=24){
+                    hour=0;
+                }
+            }
+        }
+        setTimeout(timer,1000);       
+    }
+    timer(); -->
+    </script> 
+    <hr>
     <p id="lottery" name="lottery" style="font-size:100px;">1</p>
     <button type="button" id="btn01" name="btn01" onclick="getPrize();">抽獎</button>
 

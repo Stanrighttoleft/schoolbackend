@@ -12,6 +12,10 @@ function rand(min, max){
             return 最大返回10, Math.floor(0.9*(10-5+1)+5)
              */
         }
+function addZero(x){
+            return((x<10) ?"0"+x :x);
+        }
+        
 function arrangeseatrow(seat){
     if(seat<17){
         row=Math.floor(seat/8);
