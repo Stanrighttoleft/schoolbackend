@@ -318,6 +318,13 @@
                 >
                   清除重選
                 </button>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  onclick="restRand()"
+                >
+                  剩餘自選
+                </button>
               </td>
               <td>
                 獎金分配方式<br />
@@ -391,6 +398,25 @@
             }
         }
     }
+    //剩餘自選
+    
+    const restRand=()=>{
+      let countTimes=0;
+      for(let i=0;i<=23;i++){
+        if(chk_arr[i].checked==true){
+          countTimes++;
+        };
+      }
+      console.log(countTimes);
+      for(let i =0; i<=(11-countTimes);i++){
+            let chkData=rand(0,23);
+            if(chk_arr[chkData].checked==false){
+                chk_arr[chkData].checked=true;
+            }else{
+                i--;
+            }
+        }
+    }
     //開獎函數
     let acc=[];
     function openWinner(){
@@ -411,12 +437,14 @@
             return false;
         }
         for(let i=0;i<=11;i++ ){
-            let chkData=rand(1,24);
+            let chkData=rand(0,23);
             if(Ball.indexOf(chkData)==-1){
                 Ball.push(chkData);
                 if(selectBall.indexOf(chkData) !=-1){
                     winBall.push(chkData);
                 }
+            }else{
+              i--;
             }
         }
         //將結果插入表格
