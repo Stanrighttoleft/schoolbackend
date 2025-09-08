@@ -15,7 +15,11 @@ $id = intval($_GET['id']);
 try {
     $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
     $stmt->execute([$id]);
-    $product = $stmt->fetch();
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Make sure sizes is decoded
+if ($product && isset($product['sizes'])) {
+    $product['sizes'] = json_decode($product['sizes'], true);
+}
 
     if ($product) {
         echo json_encode([

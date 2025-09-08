@@ -1,4 +1,7 @@
 <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 header("Content-Type: application/json");
 include_once(__DIR__ . "/../important/db.php"); // $pdo
 include_once(__DIR__ . "/../important/cors.php");
