@@ -7,6 +7,46 @@
     <script src="comlib.js"></script>
 </head>
 <body>
+   
+<hr>
+    
+     <script>
+       
+        var level=1; //設定初始直
+        var n=1; //計算存放結果
+        
+        countLevel=rand(5,15); //涮產生階層數5-15
+        document.write("<h1>計算："+countLevel+"!階層</h1>")
+        while(level<=countLevel){
+            //level<=countLevel為true才進行內部迴圈
+            let i=1;
+            document.write(level+"!:"+i)    
+            while(i<level){
+                i++;
+                document.write("*"+(i));
+            }
+            if(level===1){
+                document.write("*1")
+            }
+            n=n*level;
+            document.write("="+n+"<br>");
+            level++;
+        }
+    </script>
+    <!-- <script>
+        var level=1; //設定初始直
+        var n=1; //計算存放結果
+        countLevel=rand(5,15); //涮產生階層數5-15
+        document.write("<h1>計算："+countLevel+"!階層</h1>")
+        while(level<=countLevel){
+            //level<=countLevel為true才進行內部迴圈
+            
+            n=n*level;
+            document.write(level+"!="+n+"<br>");
+            level++;
+        }
+    </script> -->
+    <hr>
     <script>
         //for 遞減迴圈測試
         var total=0;
