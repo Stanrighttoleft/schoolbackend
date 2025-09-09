@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scratch Card Example</title>
+  <style>
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: crosshair;
+    }
+    #container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <canvas id="firstlayer"></canvas> <!-- bottom layer (hidden prize) -->
+    <canvas id="secondlayer"></canvas> <!-- top layer (to scratch off) -->
+  </div>
+
+  <script src="test101.js"></script>
+</body>
+</html>

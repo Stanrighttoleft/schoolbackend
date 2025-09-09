@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* linear-gradient(direction, color-stop1, color-stop2, color-stop3....) ;漸層函數
+        direction:作用為漸層的方向或角度，預設為to bottom由上到下，可為to top right到右上或為角度45deg等方式。
+        color-stop1, color-stop2漸層所需的顏色以及漸層顏色呈現的範圍，參數由左至右進行渲染。參數為顏色，起始範圍，結束範圍，若無範圍則平均分配顏色漸層。
+        */
+        /* #content{
+            width:800px;
+            height: 900px;
+            background-image: linear-gradient(to top right, rgb(255,0,0) 0% 20%, green 60%,#00f 70% 100%);
+        } */
+
+        /* repeating-linear-gradient線性重複漸層：設定時只需要設定一部分的漸層區域，其他部分會自動重複填滿 */
+        /* #content{
+            width:800px;
+            height: 900px;
+            background-image: repeating-linear-gradient(to top right, rgb(255,0,0) 5% 10% , green 15% 20%,#00f 25% 30%);
+        } */
+
+        /* radial-gradient(radial-shape||radial-size? [at <position>]?, <color-stop-list>);放射性漸層
+            radial-shape:圓形circle,橢圓ellipse 預設為ellipse 
+            radial-size:circle為設定單一大小尺寸,
+            radial-size:ellipse為設定X軸與Y軸尺寸，常用單位為px,若捨略則預設為farthest-corner，
+            at position:設定起始位置，預設為center，放射性漸層特效變化提供closest-side：最近邊, farthest-side:最遠邊，closest-corner最近角，farthest-corner最遠角為預設值 */
+
+        /* #content{
+            width:800px;
+            height: 900px;
+            background-image:radial-gradient(ellipse  farthest-corner at center,rgb(255,0,0) 0% 20%,green 30% 40%,#00f 55% 100%);} */
+        /* #content{
+            width:800px;
+            height: 900px;
+            background-image:radial-gradient(ellipse 600px 300px farthest-corner at center,rgb(255,0,0) 0% 20%,green 30% 40%,#00f 55% 100%);} */
+         /* #content{
+            width:800px;
+            height: 900px;
+            background-image:radial-gradient(ellipse closest-corner at 20% 10%,rgb(255,0,0) 0% 20%,green 30% 40%,#00f 55% 100%);}  */
+
+        /* repeating-radial-gradient放射性漸層:設定只要設定一部分的漸層，其餘部分由瀏覽器自動分配 */
+        /* #content{
+            width:800px;
+            height: 900px;
+            background-image:repeating-radial-gradient(ellipse closest-corner at 20% 10%,rgb(255,0,0) 0% 20%,green 20% 30%,#00f 30% 35%);}   */
+
+        /* conic-gradient([from angle][at position],color [degree],color[degree,...]);圓錐形漸層函數
+            from angle:以順時針的方式，從哪個角度進行圓錐漸層，預設12點角度0
+            at position:設定起始位置，預設center,提供[left|center|right] && [top|center|bottom]，亦可訂x軸與y軸位置，單位px與%皆可。
+            color[degree]：漸層所需要的顏色，與件層層憲的範圍，參數由左至右進行渲染。參數為顏色，起始範圍，結束範圍，若無漸層範圍則平均分配顏色漸層，單位deg,%皆可。
+        */
+        /* #content{
+            width:800px;
+            height: 900px;
+            background-image:conic-gradient(from 0deg at 50% 50%, rgb(255,0,0),green,#00f);
+        
+        }   */
+        #content{
+            width:800px;
+            height: 800px;
+            border-radius: 50%;
+            background-image:repeating-conic-gradient(from 0deg at 50% 50%, rgb(255,0,0) 0deg 10deg,green 10deg 20deg,#00f 20deg 30deg);
+            transform: rotate(0deg);
+            transition: all 10s ease;
+            
+        
+        }  
+        #content:hover{
+            width:800px;
+            height: 800px;
+            border-radius: 50%;
+            background-image:repeating-conic-gradient(from 0deg at 50% 50%, rgb(255,0,0) 0deg 10deg,green 10deg 20deg,#00f 20deg 30deg);
+            transform: rotate(720deg);
+            
+        
+        }  
+
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    
+</body>
+</html>
