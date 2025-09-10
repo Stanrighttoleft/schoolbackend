@@ -9,8 +9,39 @@
 <body>
    
 <hr>
-    
-     <script>
+    <!-- 散步的時候想到的點子 -->
+    <script>
+       
+        var level=1; //設定初始直
+        var n=1; //計算存放結果
+        
+        countLevel=rand(5,15); //涮產生階層數5-15
+        document.write("<h1>計算："+countLevel+"!階層</h1>")
+        while(level<=countLevel){
+            //level<=countLevel為true才進行內部迴圈
+            let i=[];
+            let j=1;
+            while(j<level){
+                i.push(j);
+                j++
+            }
+            if(level===1){
+                document.write(level+"!:1*1=1<br>");
+                level++;
+            }else{
+                
+                document.write(level+"!:") 
+            i.forEach((i)=>{document.write(i+"*")})
+            document.write(j+"="+i.reduce((sum,val)=>val*sum,1)+"<br>" );  
+            // n=n*level;
+            // document.write(j+"="+n+"<br>");
+            level++;
+            }                    
+            
+        }
+    </script>
+    <!-- 目前我的解答 -->
+     <!-- <script>
        
         var level=1; //設定初始直
         var n=1; //計算存放結果
@@ -31,7 +62,7 @@
             n=n*level;
             document.write("="+n+"<br>");
             level++;
-        }
+        } -->
     </script>
     <!-- <script>
         var level=1; //設定初始直
