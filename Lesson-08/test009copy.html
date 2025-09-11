@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="comlib.js"></script>
+  </head>
+
+  <body>
+    <table id="chart" border="1">
+      <tr>
+        <th align="center" colspan="10">學生成績測試資料產生</th>
+      </tr>
+      <tr>
+        <td>姓名</td>
+        <td>國文</td>
+        <td>英文</td>
+        <td>數學</td>
+        <td>計算機概論</td>
+        <td>工廠實習</td>
+        <td>微積分</td>
+        <td>體育</td>
+        <td>平均成績</td>
+        <td>排名</td>
+      </tr>
+    </table>
+    <script>
+      const scoreSheet = new Array();
+      const chart = document.getElementById("chart");
+
+      //build the the 30 row data
+      let arrayIndex = 0;
+      do {
+        scoreSheet.push(
+          Array(
+            arrayIndex,
+            "student" + (arrayIndex + 1),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            0
+          )
+        );
+        //count the average for the each row and replace the 0 with average score
+        let scoreAvg =
+          scoreSheet[arrayIndex].slice(2, 8).reduce((sum, val) => sum + val) /
+          7;
+        // let roundAvg = Math.round(scoreAvg * 100) / 100;
+        let roundAvg = Math.round(scoreAvg * 100) / 100;
+        scoreSheet[arrayIndex].splice(9, 1, roundAvg);
+        arrayIndex++;
+      } while (arrayIndex < 30);
+
+      //map a averagescore array and sort it
+      let scoreAvgAll = scoreSheet.map((a) => a[9]).sort((a, b) => b - a);
+      console.log(scoreAvgAll);
+
+      //use the value of scoresheet array for each student to refer to the sorted average score array index, so we get the ranking
+      let arrayCount = 0;
+      while (arrayCount < 30) {
+        scoreSheet[arrayCount].push(
+          scoreAvgAll.indexOf(scoreSheet[arrayCount][9])
+        );
+        arrayCount++;
+      }
+
+      //start to insert all the row and td and also put content to each td
+      for (i = 0; i < 30; i++) {
+        let lastRow = chart.rows.length;
+        let tableTr = chart.insertRow(lastRow);
+        for (let j = 1; j <= 10; j++) {
+          let td = tableTr.insertCell(tableTr.cells.length);
+          td.innerHTML = scoreSheet[i][j];
+
+          //color and * the score depend on the content filled
+          if (scoreSheet[i][j] >= 90) {
+            td.innerHTML = `*${scoreSheet[i][j]}`;
+            td.setAttribute("class", "textGreen");
+          } else if (scoreSheet[i][j] < 60 && j !== 10) {
+            td.innerHTML = scoreSheet[i][j];
+            td.setAttribute("class", "textRed");
+          }
+        }
+      }
+
+      //building the first cell for the last row
+      fallScore = chart.insertRow();
+      td = fallScore.insertCell(0);
+      td.innerHTML = "不及格小計";
+
+      //fill in the content and building all cell for last row
+      for (i = 2; i < 11; i++) {
+        if (i === 10 || i === 9) {
+          td = fallScore.insertCell(i - 1);
+          td.innerHTML = "-";
+        } else {
+          td = fallScore.insertCell(i - 1);
+
+          //count the score less than 60
+          let fallCount = scoreSheet.filter((stu) => stu[i] < 60).length;
+
+          td.innerHTML = fallCount;
+        }
+      }
+    </script>
+  </body>
+  <style>
+    .textGreen {
+      color: green;
+      font-weight: bolder;
+    }
+    .textRed {
+      color: red;
+    }
+  </style>
+</html>
