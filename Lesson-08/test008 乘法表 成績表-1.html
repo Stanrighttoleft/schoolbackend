@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bgRed {
+            background-color: red;
+        }
+
+        .bgYellow {
+            background-color: yellow;
+        }
+
+        .bgNone {
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+    <h3>9x9乘法表</h3>
+    <table id="multipli" border="1" bordercolor="green">
+        <tr>
+            <td>*</td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var level1 = 9, level2 = 9;
+        var tableTr = document.getElementById("multipli").rows[0];
+        for (let i = 1; i <= level1; i++) { //改成level2?
+            var td = tableTr.insertCell(tableTr.cells.length);
+            td.innerHTML = i;
+            if (i == 5) {
+                td.setAttribute("class", "bgRed"); //表頭5紅底
+            }
+        }
+        for (let i = 1; i <= level1; i++) {
+            var lastRow = document.getElementById("multipli").rows.length;
+            var tableTr = document.getElementById("multipli").insertRow(lastRow);
+            var td = tableTr.insertCell(tableTr.cells.length);
+            td.innerHTML = i;
+            for (let j = 1; j <= level2; j++) {
+                td = tableTr.insertCell(tableTr.cells.length);
+                td.innerHTML = i + "*" + j + "=" + i * j;
+                if (i == 5 && j == 5) { //5x5透明底
+                    td.setAttribute("class", "bgNone");
+                }
+                else if (i == 5) {
+                    td.setAttribute("class", "bgYellow");
+                } else if (j == 5) {
+                    td.setAttribute("class", "bgRed");
+                }
+            }
+        }
+    </script>-->
+    <hr>
+    <!------------------------------------------綜合練習1---------------------------------------------->
+    <h3>綜合練習1</h3>
+    <table id="multipli" border="1" bordercolor="black" style="text-align: center;">
+        <tr>
+            <td colspan="10">學科成績資料產生</td>
+        </tr>
+        <tr>
+            <td>姓名</td>
+            <td>國文</td>
+            <td>英文</td>
+            <td>數學</td>
+            <td>計算機概論</td>
+            <td>工廠實習</td>
+            <td>微積分</td>
+            <td>體育</td>
+            <td>平均成績</td>
+            <td>排名</td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var level1 = 30, level2 = 7;
+        var avgArr = [];
+        var fail = new Array(7).fill(0);
+        for (let i = 1; i <= level1; i++) {
+            var lastRow = document.getElementById("multipli").rows.length;
+            var tableTr = document.getElementById("multipli").insertRow(lastRow);
+
+            //學生編號
+            var td = tableTr.insertCell(tableTr.cells.length);
+            td.innerHTML = "student" + i;
+
+            //分數區塊
+            var sum = 0;
+            var avg = 0;
+            let j = 1;
+            while (j <= level2) {
+                td = tableTr.insertCell(tableTr.cells.length);
+                let score = Math.floor(Math.random() * 101);
+                td.innerHTML = score;
+                sum += score;
+                if (score < 60) {
+                    fail[j - 1]++;
+                    td.innerHTML = "<span style='color:red'>" + score + "</span>";
+                } else if (score >= 95) {
+                    td.innerHTML = "<span style='color:green;font-weight:bold'>*" + score + "</span>";
+                } else if (score >= 90) {
+                    td.innerHTML = "<span style='color:green'>" + score + "</span>";
+                }
+                j++;
+            }
+
+            //平均分數
+            var avg = (sum / 7).toFixed(2);
+            td = tableTr.insertCell(tableTr.cells.length);
+            if (avg >= 60) {
+                td.innerHTML = avg;
+            } else if (avg < 60) {
+                td.innerHTML = "<span style='color:red'>" + avg + "</span>";
+            }
+            avgArr.push(avg);
+
+            //排名
+            td = tableTr.insertCell(tableTr.cells.length);
+            td.innerHTML = "";
+        }
+
+        //排名
+        var sortedavgArr = [...avgArr].sort((a, b) => b - a); //降序排序
+        var rank = avgArr.map(value => sortedavgArr.indexOf(value) + 1); //將排名填到新陣列(rank)
+        for (let r = 0; r < level1; r++) {
+            var row = document.getElementById("multipli").rows[r + 2]; //第三行
+            var td = row.cells[9]; //第九列
+            td.innerHTML = rank[r];
+        }
+
+        //不及格
+        var tableTr = document.getElementById("multipli").insertRow(32);
+        tableTr.insertCell(0).innerHTML = "不及格小計";
+        let k = 1;
+        do {
+            tableTr.insertCell(k).innerHTML = fail[k - 1];
+            k++;
+        } while (k <= level2);
+        tableTr.insertCell(8).innerHTML = "--";
+        tableTr.insertCell(9).innerHTML = "--";
+    </script>
+
+</body>
+
+</html>
