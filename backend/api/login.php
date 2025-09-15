@@ -22,7 +22,8 @@ if (!$email || !$password) {
 
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT id, name, email, role, phone, address, password FROM users WHERE email = ?");
+
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
