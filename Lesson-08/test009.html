@@ -59,8 +59,12 @@
         for(let j=1;j<=10;j++){
             let td=tableTr.insertCell(tableTr.cells.length);
             td.innerHTML=sortAgain[i][j];
-            if(sortAgain[i][j]>=90){
+            if(sortAgain[i][j]>=95){
                 td.innerHTML=`*${sortAgain[i][j]}`;
+                td.setAttribute("class","textGreen")
+
+            }else if(sortAgain[i][j]>=90 &&sortAgain[i][j]<95){
+                td.innerHTML=`${sortAgain[i][j]}`;
                 td.setAttribute("class","textGreen")
 
             }else if(sortAgain[i][j]<60 && j!==10){
@@ -79,6 +83,10 @@
             td=fallScore.insertCell(i-1);
             td.innerHTML='-';
 
+        }else if(i===9){
+            td=fallScore.insertCell(i-1);
+            td.innerHTML='-';
+            
         }else{
             td=fallScore.insertCell(i-1);
             let fallCount=scoreSheet.filter(stu=>stu[i]<60).length;

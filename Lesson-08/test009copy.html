@@ -78,8 +78,11 @@
           td.innerHTML = scoreSheet[i][j];
 
           //color and * the score depend on the content filled
-          if (scoreSheet[i][j] >= 90) {
+          if (scoreSheet[i][j] >= 95) {
             td.innerHTML = `*${scoreSheet[i][j]}`;
+            td.setAttribute("class", "textGreen");
+          } else if (scoreSheet[i][j] >= 90 && scoreSheet[i][j] < 95) {
+            td.innerHTML = `${scoreSheet[i][j]}`;
             td.setAttribute("class", "textGreen");
           } else if (scoreSheet[i][j] < 60 && j !== 10) {
             td.innerHTML = scoreSheet[i][j];

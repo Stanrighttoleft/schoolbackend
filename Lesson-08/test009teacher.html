@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="comlib.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js">
+
+  </script>
+  </head>
+
+  <body>
+    <div style="text-align: center; display: flex; justify-content: center; margin-bottom: 50px;">
+        <table id="chart" border="1">
+          <tr>
+            <th align="center" colspan="10">學生成績測試資料產生</th>
+          </tr>
+          <tr>
+            <td>姓名</td>
+            <td>國文</td>
+            <td>英文</td>
+            <td>數學</td>
+            <td>計算機概論</td>
+            <td>工廠實習</td>
+            <td>微積分</td>
+            <td>體育</td>
+            <td>平均成績</td>
+            <td>排名</td>
+          </tr>
+        </table>
+    </div>
+    <div style="display: flex; flex-wrap: wrap;">
+        <div id="main" style="width: 50%; height: 600px;"></div>
+        <div id="main1" style="width: 50%; height: 600px;"></div>
+        <div id="main2" style="width: 100%; height: 600px;"></div>
+        <div id="main3" style="width: 50%; height: 600px;"></div>
+        <div id="main4" style="width: 100%; height: 1200px;"></div>
+        <div id="main5" style="width: 100%; height: 1200px;"></div>
+    </div>
+    
+    <script>
+      const scoreSheet = new Array();
+      const chart = document.getElementById("chart");
+      //統計各科成績分布陣列
+      let scoreAll=new Array();
+      let statistics=new Array();
+      let avgSubject=new Array();
+      let avgEvery=new Array();
+      let avgArray=new Array(0,0,0,0,0,0,0,0,0,0,0);
+
+      for(let i=0;i<=6;i++){
+        statistics[i]=new Array(0,0,0,0,0,0,0,0,0,0,0) //預設各科成績區間人數，預設為0
+      }
+      
+
+      //build the the 30 row data
+      let arrayIndex = 0;
+      do {
+        scoreSheet.push(
+          Array(
+            arrayIndex,
+            "student" + (arrayIndex + 1),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            rand(1, 100),
+            0
+          )
+        );
+        //count the average for the each row and replace the 0 with average score
+        scoreAll.push(scoreSheet[arrayIndex].slice(2,9))
+        let scoreAvg =
+          scoreSheet[arrayIndex].slice(2, 9).reduce((sum, val) => sum + val) /
+          7;
+        // let roundAvg = Math.round(scoreAvg * 100) / 100;
+        // let roundAvg = Math.round(scoreAvg * 100) / 100;
+        let roundAvg=(scoreAvg).toFixed(2);
+        avgEvery.push(roundAvg);
+        scoreSheet[arrayIndex].splice(9, 1, roundAvg);
+        arrayIndex++;
+      } while (arrayIndex < 30);
+
+      //!!array for arrange average score for every one
+      console.log(avgEvery);
+      for(i=0;i<30;i++){
+        avgArray[scoreAssign(avgEvery[i])]++;
+      }
+      console.log(avgArray);
+
+      //map a averagescore array and sort it
+      let scoreAvgAll = scoreSheet.map((a) => a[9]).sort((a, b) => b - a);
+
+      //use scoreAll to count avgSubject
+      for (let i = 0; i < 7; i++) {
+        let total = scoreAll.reduce((sum, row) => sum + row[i], 0);
+        avgSubject.push((total / scoreAll.length).toFixed(2));
+      }
+      console.log(avgSubject)
+      //create an array to store ppl below average and above average
+      let belowAvg=[];
+      let aboveAvg=[];
+      for(let i=0;i<7;i++){
+        let subjectScores=scoreAll.map(row=>row[i])
+        let belowScore=subjectScores.filter(score=>score<avgSubject[i]);
+        belowAvg.push(belowScore.length);
+      }
+      console.log('score lower:'+belowAvg)
+      for(let i=0;i<7;i++){
+        let subjectScores=scoreAll.map(row=>row[i])
+        let aboveScore=subjectScores.filter(score=>score>=avgSubject[i]);
+        aboveAvg.push(aboveScore.length);
+      }
+      console.log('socre higher:'+aboveAvg)
+
+      //use scoreAll (score array) to count statistics
+      console.log(scoreAll);
+      
+      for(i=0;i<30;i++){
+        for(j=0;j<=6;j++){
+            statistics[j][scoreAssign(scoreAll[i][j])]++
+        }
+      };
+      console.log(statistics)
+      
+
+      //use the value of scoresheet array for each student to refer to the sorted average score array index, so we get the ranking
+      let arrayCount = 0;
+      while (arrayCount < 30) {
+        scoreSheet[arrayCount].push(
+          scoreAvgAll.indexOf(scoreSheet[arrayCount][9]) + 1
+        );
+        arrayCount++;
+      }
+
+      //start to insert all the row and td and also put content to each td
+      for (i = 0; i < 30; i++) {
+        let lastRow = chart.rows.length;
+        let tableTr = chart.insertRow(lastRow);
+        for (let j = 1; j <= 10; j++) {
+          let td = tableTr.insertCell(tableTr.cells.length);
+          td.innerHTML = scoreSheet[i][j];
+
+          //color and * the score depend on the content filled
+          if (scoreSheet[i][j] >= 95) {
+            td.innerHTML = `*${scoreSheet[i][j]}`;
+            td.setAttribute("class", "textGreen");
+          }else if(scoreSheet[i][j] >= 90&&scoreSheet[i][j] < 95){
+            td.innerHTML = `${scoreSheet[i][j]}`;
+            td.setAttribute("class", "textGreenslim");
+          } 
+          else if (scoreSheet[i][j] < 60 && j !== 10) {
+            td.innerHTML = scoreSheet[i][j];
+            td.setAttribute("class", "textRed");
+          }
+        }
+      }
+
+      //building the first cell for the last row
+      fallScore = chart.insertRow();
+      td = fallScore.insertCell(0);
+      td.innerHTML = "不及格小計";
+      let fail=[];
+
+      //fill in the content and building all cell for last row
+      for (i = 2; i < 11; i++) {
+        if (i === 10 || i === 9) {
+          td = fallScore.insertCell(i - 1);
+          td.innerHTML = "-";
+        } else {
+          td = fallScore.insertCell(i - 1);
+
+          //count the score less than 60
+          let fallCount = scoreSheet.filter((stu) => stu[i] < 60).length;
+          fail[i-2]=fallCount;
+          
+          
+
+          td.innerHTML = fallCount;
+        }
+      }
+      //insert for the average score
+      //----------------------
+      //building the first cell
+      averageScore = chart.insertRow();
+      td = averageScore.insertCell(0);
+      td.innerHTML = "平均分數";
+      //fill in the content and building all cell 
+      for (i = 2; i < 11; i++) {
+        if (i === 10 || i === 9) {
+          td = averageScore.insertCell(i - 1);
+          td.innerHTML = "-";
+        } else {
+          td = averageScore.insertCell(i - 1);
+          td.innerHTML = avgSubject[i-2];
+        }
+      }
+      //insert for the aboveavg count
+      //----------------------
+      //building the first cell
+      aboveCount = chart.insertRow();
+      td = aboveCount.insertCell(0);
+      td.innerHTML = "高標人數";
+      //fill in the content and building all cell 
+      for (i = 2; i < 11; i++) {
+        if (i === 10 || i === 9) {
+          td = aboveCount.insertCell(i - 1);
+          td.innerHTML = "-";
+        } else {
+          td = aboveCount.insertCell(i - 1);
+          td.innerHTML = aboveAvg[i-2];
+        }
+      }
+      //insert for the belowavg count
+      //----------------------
+      //building the first cell
+      belowCount = chart.insertRow();
+      td = belowCount.insertCell(0);
+      td.innerHTML = "低標人數";
+      //fill in the content and building all cell 
+      for (i = 2; i < 11; i++) {
+        if (i === 10 || i === 9) {
+          td = belowCount.insertCell(i - 1);
+          td.innerHTML = "-";
+        } else {
+          td = belowCount.insertCell(i - 1);
+          td.innerHTML = belowAvg[i-2];
+        }
+      }
+      
+      
+      //自訂功能函數 scoreAssign
+      //============================
+
+      function scoreAssign(data=0){
+        if(data===100){
+            return(10);
+        }else if(data>=90){
+            return(9);
+        }else if(data>=80){
+            return(8);
+        }else if(data>=70){
+            return(7);
+        }else if(data>=60){
+            return(6);
+        }
+        else if(data>=50){
+            return(5);
+        }
+        else if(data>=40){
+            return(4);
+        }
+        else if(data>=30){
+            return(3);
+        }
+        else if(data>=20){
+            return(2);
+        }
+        else if(data>=10){
+            return(1);
+        }else{
+            return(0);
+        }
+        
+      }
+
+
+      //設定Echart要顯示對應的原件
+      var myChart=echarts.init(document.getElementById('main'));
+      var myChart1=echarts.init(document.getElementById('main1'));
+      var myChart2=echarts.init(document.getElementById('main2'));
+      var myChart3=echarts.init(document.getElementById('main3'));
+      var myChart4=echarts.init(document.getElementById('main4'));
+      var myChart5=echarts.init(document.getElementById('main5'));
+      
+
+      var clist=['國文','英文','數學','計算機概論','工廠實習','微積分','體育'];
+
+      //設定圖表所有顯示的方式與格式
+      var option={
+        title:{
+            text:'班級成績統計圖' 
+        },
+        tooltip:{},
+        legend:{
+            data:['不及格人數']
+        },
+        xAxis:{
+            data:clist,
+        },
+        yAxis:{},
+        series:[
+            {
+                name:'不及格人數',
+                type:'bar',
+                data:[
+                    {
+                    value:fail[0],
+                    itemStyle:{color:'#5470c6'}
+                },
+                    {
+                    value:fail[1],
+                    itemStyle:{color:'#91cc75'}
+                },
+                    {
+                    value:fail[2],
+                    itemStyle:{color:'#fac858'}
+                },
+                    {
+                    value:fail[3],
+                    itemStyle:{color:'#ee6666'}
+                },
+                    {
+                    value:fail[4],
+                    itemStyle:{color:'#73c0de'}
+                },
+                    {
+                    value:fail[5],
+                    itemStyle:{color:'#3ba272'}
+                },
+                    {
+                    value:fail[6],
+                    itemStyle:{color:'#fc8452'}
+                },
+            ]
+            }
+        ]
+      };
+      //將所設定的圖形雌數,進行對應的DIV元件啟動顯示
+      var option1={
+        title:{
+            text:'各科成績分布圖' 
+        },
+        tooltip:{
+            trigger:'axis'
+        },
+        legend:{
+            data:clist
+        },
+        grid:{
+            left:'3%',
+            right:'4%',
+            bottom:'3%',
+            containLabel:true
+
+        },
+        toolbox:{
+            feature:{
+                saveAsImage:{}
+            }
+        },
+        xAxis:{
+            type:"category",
+            boundaryGap:false,
+
+            data:['0-9','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-99','100'],
+        },
+        yAxis:{},
+        series:[
+            {
+                name:clist[0],
+                type:'line',
+                stack:'Total',
+                data:statistics[0]
+            },
+            {
+                name:clist[1],
+                type:'line',
+                stack:'Total',
+                data:statistics[1]
+            },
+            {
+                name:clist[2],
+                type:'line',
+                stack:'Total',
+                data:statistics[2]
+            },
+            {
+                name:clist[3],
+                type:'line',
+                stack:'Total',
+                data:statistics[3]
+            },
+            {
+                name:clist[4],
+                type:'line',
+                stack:'Total',
+                data:statistics[4]
+            },
+            {
+                name:clist[5],
+                type:'line',
+                stack:'Total',
+                data:statistics[5]
+            },
+            {
+                name:clist[6],
+                type:'line',
+                stack:'Total',
+                data:statistics[6]
+            },
+           
+                   
+            ]
+        }
+      //avgscore高低標人數bar and line mix
+      var option2 = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+            type: 'cross',
+            crossStyle: {
+                color: '#999'
+            }
+            }
+        },
+        toolbox: {
+            feature: {
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ['line', 'bar'] },
+            restore: { show: true },
+            saveAsImage: { show: true }
+            }
+        },
+        legend: {
+            data: ['低標人數', '高標人數', '各科平均']
+        },
+        xAxis: [
+            {
+            type: 'category',
+            data: ['國文', '英文', '數學', '計算機概論', '工廠實習', '微積分', '體育'],
+            axisPointer: {
+                type: 'shadow'
+            }
+            }
+        ],
+        yAxis: [
+            {
+            type: 'value',
+            name: '人數',
+            min: 0,
+            max: 20,
+            interval: 4,
+            axisLabel: {
+                formatter: '{value} 人'
+            }
+            },
+            {
+            type: 'value',
+            name: '各科平均分數',
+            min: 0,
+            max: 100,
+            interval: 20,
+            axisLabel: {
+                formatter: '{value} 分'
+            }
+            }
+        ],
+        series: [
+            {
+            name: '低標人數',
+            type: 'bar',
+            tooltip: {
+                valueFormatter: function (value) {
+                return value + ' 人';
+                }
+            },
+            data: [
+                belowAvg[0], belowAvg[1], belowAvg[2], belowAvg[3], belowAvg[4], belowAvg[5], belowAvg[6]
+            ]
+            },
+            {
+            name: '高標人數',
+            type: 'bar',
+            tooltip: {
+                valueFormatter: function (value) {
+                return value + ' 人';
+                }
+            },
+            data: [
+                aboveAvg[0], aboveAvg[1], aboveAvg[2], aboveAvg[3], aboveAvg[4], aboveAvg[5], aboveAvg[6]
+            ]
+            },
+            {
+            name: 'Temperature',
+            type: 'line',
+            yAxisIndex: 1,
+            tooltip: {
+                valueFormatter: function (value) {
+                return value + ' 分';
+                }
+            },
+            data: [avgSubject[0], avgSubject[1], avgSubject[2], avgSubject[3], avgSubject[4], avgSubject[5], avgSubject[6]]
+            }
+        ]
+    };  
+      var option3 = {
+            angleAxis: {
+                type: 'category',
+                data: [clist[0], clist[1], clist[2], clist[3], clist[4], clist[5], clist[6]],
+            axisLabel:{
+                interval:0,
+                rotate:45,
+
+            }
+            },
+            radiusAxis: {},
+            polar: {},
+            series: [
+                {
+                type: 'bar',
+                data: [aboveAvg[0],aboveAvg[1], aboveAvg[2], aboveAvg[3],aboveAvg[4], aboveAvg[5], aboveAvg[6]],
+                coordinateSystem: 'polar',
+                name: '高標',
+                stack: 'a',
+                emphasis: {
+                    focus: 'series'
+                }
+                },
+                {
+                type: 'bar',
+                data: [belowAvg[0], belowAvg[1], belowAvg[2],belowAvg[3], belowAvg[4], belowAvg[5], belowAvg[6]],
+                coordinateSystem: 'polar',
+                name: '低標',
+                stack: 'a',
+                emphasis: {
+                    focus: 'series'
+                }
+                }
+            ],
+            legend: {
+                show: true,
+                data: ['高標人數', '低標人數']
+            }
+        };
+      var option5 = {
+            title: {
+                text: '全班平均成績分布圖',
+                subtext: 'Fake Data',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left'
+            },
+            series: [
+                {
+                name: 'Access From',
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    { value: avgArray[0], name: '0-9' },
+                    { value:avgArray[1], name: '10-19' },
+                    { value:avgArray[2], name: '20-29' },
+                    { value:avgArray[3], name: '30-39' },
+                    { value: avgArray[4], name: '40-49' },
+                    { value: avgArray[5], name: '50-59' },
+                    { value: avgArray[6], name: '60-69' },
+                    { value: avgArray[7], name: '70-79' },
+                    { value: avgArray[8], name: '80-89' },
+                    { value: avgArray[9], name: '90-99' },
+                    { value: avgArray[10], name: '100' },
+                ],
+                emphasis: {
+                    itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+                }
+            ]
+            };
+
+      //******************
+      //very risky area delete if need
+        const pieSeries = [];
+
+        const centerCoords = [
+        ['20%', '20%'],
+        ['50%', '20%'],
+        ['80%', '20%'],
+        ['20%', '55%'],
+        ['50%', '55%'],
+        ['80%', '55%'],
+        ['50%', '90%'],
+        ];
+
+        for (let i = 0; i < 7; i++) {
+        pieSeries.push({
+            type: 'pie',
+            name: clist[i]+'平均分數：'+avgSubject[i],
+            radius: '20%',
+            center: centerCoords[i],
+            label: {
+            formatter: '{b}: {c} ({d}%)',
+            position: 'outside'
+            },
+            tooltip: {
+            trigger: 'item'
+            },
+            data: [
+            { value: aboveAvg[i], name: '高標' },
+            { value: belowAvg[i], name: '低標' }
+            ]
+        });
+        }
+
+        const option4 = {
+        title: {
+            text: '各科高標 / 低標 人數比例圖',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            bottom: 10,
+            data: ['高標', '低標']
+        },
+        series: pieSeries
+        };
+
+myChart.setOption(option);
+
+
+        //將所設定的圖形雌數,進行對應的DIV元件啟動顯示
+      myChart.setOption(option);
+      myChart1.setOption(option1);
+      myChart2.setOption(option2);
+      myChart3.setOption(option3);
+      myChart4.setOption(option4);
+      myChart5.setOption(option5);
+      
+    </script>
+  </body>
+  <style>
+    .textGreen {
+      color: green;
+      font-weight: bolder;
+    }
+    .textGreenslim{
+        color: green;
+    }
+    .textRed {
+      color: red;
+    }
+  </style>
+ 
+</html>
