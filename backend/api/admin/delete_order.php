@@ -1,7 +1,7 @@
 <?php
-include_once(__DIR__ . "/../important/db.php");
-include_once(__DIR__ . "/../important/cors.php");
-include_once(__DIR__ . "/../important/authStoreowner.php");
+include_once(__DIR__ . "/../../important/db.php");
+include_once(__DIR__ . "/../../important/cors.php");
+include_once(__DIR__ . "/../../important/authStoreowner.php");
 
 $data = json_decode(file_get_contents("php://input"));
 $id = $data->id ?? null;
