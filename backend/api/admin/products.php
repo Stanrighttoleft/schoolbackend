@@ -42,7 +42,7 @@ if (!isset($pdo)) {
 
 try {
     // Example: if using created_at, check if that column exists
-    $stmt = $pdo->prepare("SELECT * FROM products ORDER BY created_at DESC");
+    $stmt = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
