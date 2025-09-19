@@ -1,3 +1,4 @@
+
 <?php
 // Debug version of products.php
 ini_set('display_errors', 1);
