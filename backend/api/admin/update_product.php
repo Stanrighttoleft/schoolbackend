@@ -5,6 +5,13 @@ include_once(__DIR__ . "/../../important/authStoreowner.php");
 
 header("Content-Type: application/json");
 
+$id = $_GET['id'] ?? null;
+if (!$id || !is_numeric($id)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid product ID']);
+    exit;
+}
+
 $title = $_POST['title'] ?? '';
 $price = $_POST['price'] ?? '';
 $description = $_POST['description'] ?? '';
@@ -37,8 +44,19 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-$sql = "INSERT INTO products (title, price, description, sizes, image) VALUES (?, ?, ?, ?, ?)";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$title, $price, $description, $sizes, $imagePath]);
+// Build update query
+$updateFields = "title = ?, price = ?, description = ?, sizes = ?";
+$params = [$title, $price, $description, $sizes];
 
-echo json_encode(['success' => true, 'message' => 'Product added']);
+if ($imagePath) {
+    $updateFields .= ", image = ?";
+    $params[] = $imagePath;
+}
+
+$params[] = $id; // WHERE condition
+
+$sql = "UPDATE products SET $updateFields WHERE id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+
+echo json_encode(['success' => true, 'message' => 'Product updated']);
