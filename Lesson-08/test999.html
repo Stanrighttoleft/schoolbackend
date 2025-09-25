@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Point Clock</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #111;
+      }
+      .clock {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 6px solid #fff;
+        border-radius: 50%;
+      }
+      .dot {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ff0;
+        top: 50%;
+        left: 50%;
+        transform-origin: 0 -120px; /* distance from center */
+      }
+      .hour {
+        background: #0f0;
+        transform-origin: 0 -80px;
+      }
+      .minute {
+        background: #0ff;
+        transform-origin: 0 -110px;
+      }
+      .second {
+        background: #f00;
+        transform-origin: 0 -130px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock">
+      <div class="dot hour"></div>
+      <div class="dot minute"></div>
+      <div class="dot second"></div>
+    </div>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const second = now.getSeconds();
+        const minute = now.getMinutes();
+        const hour = now.getHours();
+
+        const secondDeg = (second / 60) * 360;
+        const minuteDeg = (minute / 60) * 360 + (second / 60) * 6;
+        const hourDeg = ((hour % 12) / 12) * 360 + (minute / 60) * 30;
+
+        document.querySelector(
+          ".second"
+        ).style.transform = `rotate(${secondDeg}deg)`;
+        document.querySelector(
+          ".minute"
+        ).style.transform = `rotate(${minuteDeg}deg)`;
+        document.querySelector(
+          ".hour"
+        ).style.transform = `rotate(${hourDeg}deg)`;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
+    </script>
+  </body>
+</html>
