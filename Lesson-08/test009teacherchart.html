@@ -100,6 +100,7 @@
         let total = scoreAll.reduce((sum, row) => sum + row[i], 0);
         avgSubject.push((total / scoreAll.length).toFixed(2));
       }
+      console.log('this is scoreAll'+scoreAll)
       console.log(avgSubject)
       //create an array to store ppl below average and above average
       let belowAvg=[];
@@ -486,7 +487,7 @@
             ]
             },
             {
-            name: 'Temperature',
+            name: '平均分數',
             type: 'line',
             yAxisIndex: 1,
             tooltip: {
