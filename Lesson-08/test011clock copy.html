@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap clock</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alata&family=Rowdies:wght@300;400;700&display=swap');
+       
+        @import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Double+Ink:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+        
+
+        .bitcount-prop-double-ink-clockArea {
+        font-family: "Bitcount Prop Double Ink", system-ui;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+        font-variation-settings:
+            "slnt" 0,
+            "CRSV" 0,
+            "ELSH" 0,
+            "ELXP" 0,
+            "SZP1" 100,
+            "SZP2" 100,
+            "XPN1" 0,
+            "XPN2" 0,
+            "YPN1" 0,
+            "YPN2" 0;
+        }
+
+
+
+        .clockArea{
+            width: 100%;
+            height: 400px;
+            background-image: radial-gradient(#000,#555);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .digital-clock{
+            width: 60%;
+            padding: 20px;
+            color: #ffffff;
+            border:2px solid#999;
+            border-radius: 10px;
+            font-family:"Zeyada", cursive,'Bitcount Prop Double Ink',
+            'Rowdies' ,Arial, Helvetica, sans-serif;
+            font-size: 6vw;
+            background-image: linear-gradient(180deg,#000,#555);
+        }
+    </style>
+  </head>
+  <body>
+    <br>
+    <div class="container">
+        <div class="row text-center">
+            <div class="card col-sm-8 mx-auto" >
+                <div class="clockArea">
+                    <h5 name="title">Hello world</h5>
+                    <div class="digital-clock">00:00:00</div>
+                </div>
+            
+            <div class="card-body">
+                <h5 class="card-title">JS測試：系統小時鐘</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <button class="btn btn-primary">24小時制更換</button>
+                <button class="btn btn-success">停止</button>
+                <button class="btn btn-warning">隱藏日期標題</button>
+                <button class="btn btn-info">變更民國日期標題</button>
+                <button class="btn btn-danger">變更背景顏色</button>
+                <select name="timezone" id="timezone">
+                    <option value="America/New_York">US New York (UTC-4/5)</option>
+                    <option value="Asia/Taipei">Taiwan Taipei (UTC+8)</option>
+                    <!-- Add more if you want -->
+                </select>
+  </div>
+</div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="./comlib.js"></script>
+    <script>
+
+        //英文日曆對應資料陣列
+        let months=[
+            'January','February','March','April','May','June','July','August','September','October','November','December'
+        ];
+        let days=[
+            'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
+        ]
+        let cdays=['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
+
+        let timeFormat=12;
+        let interval; //用於停止的變數
+        let dateHide=true; //顯示隱藏日期標題判斷變數,預設顯示
+        let cdate=false;
+        let selectedTimeZone = "Asia/Taipei"; 
+
+        document.getElementsByClassName("btn-primary")[0].addEventListener("click",chgFormat);
+        //停止時鐘監聽
+        document.getElementsByClassName("btn-success")[0].addEventListener("click",timeStop)
+        //建立顯示隱藏日期事件監聽
+        document.getElementsByClassName("btn-warning")[0].addEventListener("click",showDate);
+        document.getElementsByClassName("btn-info")[0].addEventListener("click",chgCdate);
+        //建立變更背景顏色監聽
+        document.getElementsByClassName("btn-danger")[0].addEventListener('click',chgBackground);
+        document.getElementById("timezone").addEventListener("change", function() {
+        selectedTimeZone = this.value;   // get selected timezone
+        clockUpdate();                   // immediately update clock display
+         });
+
+
+        //當網頁載入完成時,即執行匿名函數
+        document.getElementsByTagName('body')[0].onload=function(){
+            document.getElementsByClassName("digital-clock")[0].setAttribute('style','color:#fff;text-shadow:0 0 6px #ff0;');
+            document.getElementsByName("title")[0].style.color="#fff";
+            clockUpdate();
+            interval=setInterval(clockUpdate,1000);
+
+        }
+        
+
+        //update the time function
+       function clockUpdate() {
+            let date = new Date();
+
+            // Use selected timezone here:
+            let tz = selectedTimeZone;
+
+            let year = new Intl.DateTimeFormat('en-US', { year: 'numeric', timeZone: tz }).format(date);
+            let day = new Intl.DateTimeFormat('en-US', { day: 'numeric', timeZone: tz }).format(date);
+            let monthIndex = parseInt(new Intl.DateTimeFormat('en-US', { month: 'numeric', timeZone: tz }).format(date)) - 1;
+            let weekdayShort = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: tz }).format(date);
+
+            let weekdayMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+            let dayIndex = weekdayMap[weekdayShort];
+
+            let h = new Intl.DateTimeFormat('en-US', { hour: '2-digit', hour12: false, timeZone: tz }).format(date);
+            let m = new Intl.DateTimeFormat('en-US', { minute: '2-digit', timeZone: tz }).format(date);
+            let s = new Intl.DateTimeFormat('en-US', { second: '2-digit', timeZone: tz }).format(date);
+
+            let formatStr = addZero(h) + ':' + addZero(m) + ':' + addZero(s);
+
+            // Handle 12/24 format
+            if (timeFormat == 12) {
+                let hourNum = parseInt(h);
+                h = addZero(twelveHour(hourNum));
+                formatStr = h + ':' + m + ':' + s + ((hourNum >= 12) ? "PM" : "AM");
+            }
+
+            document.getElementsByClassName("digital-clock")[0].innerText = formatStr;
+
+            let dayOfWeek = days[dayIndex];
+            let month = months[monthIndex];
+
+            let dateString;
+            if (cdate) {
+                dateString = '民國' + (year - 1911) + '年' + (monthIndex + 1) + '月' + day + '日,' + cdays[dayIndex];
+            } else {
+                dateString = dayOfWeek + ', ' + month + ' ' + day + ', ' + year;
+            }
+
+            document.getElementsByName("title")[0].innerText = dateString;
+        }
+
+        function chgFormat(){
+            if(timeFormat==12){
+                timeFormat=24;
+                document.getElementsByClassName("btn-primary")[0].innerText="12時制更換";
+            }else{
+                timeFormat=12;
+                document.getElementsByClassName("btn-primary")[0].innerText="24時制更換";
+            }
+        }
+        // 12時制,Hour大於12小時需要進行轉換
+        function twelveHour(hour){
+            return((hour>12) ?hour-12:hour);
+        }
+        //啟動停止系統時間功能
+        function timeStop(){
+            if(interval !=0){
+                clearInterval(interval);//清interval這個interval
+                interval=0;//將編號歸零
+                document.getElementsByClassName("btn-success")[0].innerText="啟動"
+            }else{
+                interval=setInterval(clockUpdate,1000);
+                document.getElementsByClassName("btn-success")[0].innerText="停止"
+            }
+        }
+        //顯示隱藏日期標題功能函數
+        function showDate(){
+            if(dateHide){
+                dateHide=false;
+                document.getElementsByClassName("btn-warning")[0].innerText="顯示日期標題";
+                document.getElementsByName("title")[0].style.opacity="0";
+            }else{
+                dateHide=true;
+                document.getElementsByClassName("btn-warning")[0].innerHTML="隱藏日期標題";
+                document.getElementsByName("title")[0].style.opacity="100%"
+            }
+        }
+        //顯示民國西園日期標題功能函數
+        function chgCdate(){
+            if(cdate){
+                cdate=false;
+                document.getElementsByClassName("btn-info")[0].innerText="變更民國日期標題";
+            }else{
+                cdate=true;
+                document.getElementsByClassName("btn-info")[0].innerText="變更西元日期標題"
+            }
+        }
+        function chgBackground(){
+            let color1="rgb("+rand(1,255)+","+rand(1,255)+","+rand(1,255)+")";
+            let color2="rgb("+rand(1,255)+","+rand(1,255)+","+rand(1,255)+")";
+            let bgset="background-image:radial-gradient("+color1+","+color2+")";
+            document.getElementsByClassName("clockArea")[0].setAttribute('style',bgset)
+
+        }
+    </script>
+  </body>
+</html>

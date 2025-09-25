@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" name="input01" id="input01">
+    <button id="btn01" name="btn01" onclick="accumulate();">累加10</button>
+    <button type="button" id="btn02" name="btn02">累加20</button>
+    <button type="button" id="btn03" name="btn03">累加30</button>
+    <script>
+        let addval=10;
+        let input01=document.getElementById("input01");
+        input01.value=addval;
+        //使用accumulate函數累加
+        function accumulate(num=10){
+            addval+=num;
+            input01.value=addval;
+            return;
+        } 
+        //使用匿名函數累加
+        document.getElementById("btn02").onclick=function (e,num=20){
+            addval+=num;
+            input01.value=addval;
+            return ;
+        }
+        //使用箭頭函數累加
+        document.getElementById("btn03").onclick=(e,num=30)=>{
+            addval+=num;
+            input01.value=addval;
+            return;
+        };
+       
+    </script>
+</body>
+</html>
