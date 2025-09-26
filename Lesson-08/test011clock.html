@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap clock</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="animate.compat.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Alata&family=Rowdies:wght@300;400;700&display=swap');
        
@@ -60,23 +61,179 @@
     <br>
     <div class="container">
         <div class="row text-center">
-            <div class="card col-sm-8 mx-auto" >
+            <div class="card col-sm-9 mx-auto" >
                 <div class="clockArea">
                     <h5 name="title">Hello world</h5>
                     <div class="digital-clock">00:00:00</div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row text-center mb-2">
+                                <form action="" id="timerForm1" name="timerForm1" style="display:flex;">
+                                    <div class="col">
+                                        <input type="text" name="remark" id="remark" class="form-control form-control-lg" placeholder="備註" aria-label=".form-control-lg example" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <select name="hour" id="hour" class="form-select form-select-lg" aria-label="form-control-lg example" >
+                                            <option selected>設定小時</option>
+                                            <option value="0">"0"</option>
+                                            <option value="1">"1"</option>
+                                            <option value="2">"2"</option>
+                                            <option value="3">"3"</option>
+                                            <option value="4">"4"</option>
+                                            <option value="5">"5"</option>
+                                            <option value="6">"6"</option>
+                                            <option value="7">"7"</option>
+                                            <option value="8">"8"</option>
+                                            <option value="9">"9"</option>
+                                            <option value="10">"10"</option>
+                                            <option value="11">"11"</option>
+                                            <option value="12">"12"</option>
+                                            <option value="13">"13"</option>
+                                            <option value="14">"14"</option>
+                                            <option value="15">"15"</option>
+                                            <option value="16">"16"</option>
+                                            <option value="17">"17"</option>
+                                            <option value="18">"18"</option>
+                                            <option value="19">"19"</option>
+                                            <option value="20">"20"</option>
+                                            <option value="21">"21"</option>
+                                            <option value="22">"22"</option>
+                                            <option value="23">"23"</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <select name="minutes" class="form-selet form-select-lg" aria-label=".form-select-lg example" id="minutes">
+                                            <option selected>設定分鐘</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                            <option value="32">32</option>
+                                            <option value="33">33</option>
+                                            <option value="34">34</option>
+                                            <option value="35">35</option>
+                                            <option value="36">36</option>
+                                            <option value="37">37</option>
+                                            <option value="38">38</option>
+                                            <option value="39">39</option>
+                                            <option value="40">40</option>
+                                            <option value="41">41</option>
+                                            <option value="42">42</option>
+                                            <option value="43">43</option>
+                                            <option value="44">44</option>
+                                            <option value="45">45</option>
+                                            <option value="46">46</option>
+                                            <option value="47">47</option>
+                                            <option value="48">48</option>
+                                            <option value="49">49</option>
+                                            <option value="50">50</option>
+                                            <option value="51">51</option>
+                                            <option value="52">52</option>
+                                            <option value="53">53</option>
+                                            <option value="54">54</option>
+                                            <option value="55">55</option>
+                                            <option value="56">56</option>
+                                            <option value="57">57</option>
+                                            <option value="58">58</option>
+                                            <option value="59">59</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <button id="addBtn" name="addBtn" type="button" class="btn btn-light btn-lg" onclick="appendTimer();">新增</button>
+                                        <button type="reset" class="btn btn-light btn-lg text-white">清除</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr>
+                            <table id="timerList" name="timerList" class="table text-center">
+                                <thead class="table-light">
+                                    <tr>
+                                        <td>#</td>
+                                        <td>說明</td>
+                                        <td>時間</td>
+                                        <td>是否啟動</td>
+                                        <td>操作</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyId">
+                                    <tr class="align-middle">
+                                        <td>1</td>
+                                        <td>吃飯提醒</td>
+                                        <td>11:12</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <input type="text" class="form-check-input form-switch" type="checkbox" role="switch" style="float:none;">
+                                                <label for="" class="form-check-label">啟動</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success">修改</button>
+                                            <button type="button" class="brn btn-danger">刪除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark btn-lg" onclick="clearTimer();">刪除所有鬧鐘設定</button>
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+            </div>
             
             <div class="card-body">
                 <h5 class="card-title">JS測試：系統小時鐘</h5>
+                <svg id="bsIcon" xmlns="http://www.w3.org/2000/svg" width="10%" fill="currentColor" class="bi bi-alarm animated wobble infinite mx-auto" viewBox="0 0 16 16" style="width: 10%;display:none;">
+                <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9z"/>
+                <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1zm1.038 3.018a6 6 0 0 1 .924 0 6 6 0 1 1-.924 0M0 3.5c0 .753.333 1.429.86 1.887A8.04 8.04 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5M13.5 1c-.753 0-1.429.333-1.887.86a8.04 8.04 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1"/>
+                </svg>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <button class="btn btn-primary">24小時制更換</button>
-                <button class="btn btn-success">停止</button>
-                <button class="btn btn-warning">隱藏日期標題</button>
-                <button class="btn btn-info">變更民國日期標題</button>
-                <button class="btn btn-danger">變更背景顏色</button>
-                <select name="timezone" id="timezone">
-                    <option value="US">US time U</option>
-                </select>
+                <button class="btn btn-primary system">24小時制更換</button>
+                <button class="btn btn-success stop">停止</button>
+                <button class="btn btn-warning hide">隱藏日期標題</button>
+                <button class="btn btn-info change">變更民國日期標題</button>
+                <button class="btn btn-danger bgcolor">變更背景顏色</button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">鬧鐘設定</button>
   </div>
 </div>
 
@@ -85,6 +242,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="./comlib.js"></script>
     <script>
+//------------variable section----------------------------
 
         //英文日曆對應資料陣列
         let months=[
@@ -100,14 +258,21 @@
         let dateHide=true; //顯示隱藏日期標題判斷變數,預設顯示
         let cdate=false;
 
-        document.getElementsByClassName("btn-primary")[0].addEventListener("click",chgFormat);
+        //alarm function
+        let timerObject=new Array();//鬧鐘儲存陣列
+        let timerUpdate=false;//鬧鐘資料新增/更新模式切換
+        let updateIndex=0; //鬧鐘資料更新索引
+        let key="timerCookie"; //cookie存取設定的key直
+
+        //24/12小時制度監聽
+        document.getElementsByClassName("system")[0].addEventListener("click",chgFormat);
         //停止時鐘監聽
-        document.getElementsByClassName("btn-success")[0].addEventListener("click",timeStop)
+        document.getElementsByClassName("stop")[0].addEventListener("click",timeStop)
         //建立顯示隱藏日期事件監聽
-        document.getElementsByClassName("btn-warning")[0].addEventListener("click",showDate);
-        document.getElementsByClassName("btn-info")[0].addEventListener("click",chgCdate);
+        document.getElementsByClassName("hide")[0].addEventListener("click",showDate);
+        document.getElementsByClassName("change")[0].addEventListener("click",chgCdate);
         //建立變更背景顏色監聽
-        document.getElementsByClassName("btn-danger")[0].addEventListener('click',chgBackground);
+        document.getElementsByClassName("bgcolor")[0].addEventListener('click',chgBackground);
 
         //當網頁載入完成時,即執行匿名函數
         document.getElementsByTagName('body')[0].onload=function(){
@@ -115,8 +280,21 @@
             document.getElementsByName("title")[0].style.color="#fff";
             clockUpdate();
             interval=setInterval(clockUpdate,1000);
+            timerObject=getCookie(key);
 
         }
+
+        //exampleModal被啟動後要執行的功能
+        const myModal=document.getElementById('exampleModal')
+        myModal.addEventListener('shown.bs.modal',()=>{
+            timerUpdate=false;
+            //將模式設定新增
+            document.getElementById("addBtn").innerHTML="新增";
+            updateTimerForm();
+            resetForm();
+        });
+
+//-----------------function section--------------------------
         
 
         //update the time function
@@ -129,6 +307,28 @@
             let h=addZero(date.getHours());
             let formatStr=h+':'+m+':'+s;
             let dateString;
+
+            //判斷鬧鐘若有設定資料，則將鬧鐘設定時間進行比對
+            if(timerObject.length !=0){
+                let audio=new Audio('beep.mp3');
+                for(i=0; i<timerObject.length;i++){
+                    if(timerObject[i].hour==h && timerObject[i].minutes==m && timerObject[i].enable){
+                        audio.play();
+                        let startAlarm=document.getElementById("bsIcon");
+                        startAlarm.style.display="inline";
+                        
+                        console.log(timerObject)
+                    }else{
+                        let startAlarm=document.getElementById("bsIcon");
+                        startAlarm.style.display="none";
+                        audio.pause();
+                        audio.currentTime=0;
+                        
+                    }
+                }
+            }
+            console.log(h)
+        console.log(m)
 
             
 
@@ -154,11 +354,8 @@
                 
             }
             document.getElementsByName("title")[0].innerText=dateString;
-            
-            
-            
-
         }
+        //改變12/24小時時制
         function chgFormat(){
             if(timeFormat==12){
                 timeFormat=24;
@@ -205,13 +402,131 @@
                 document.getElementsByClassName("btn-info")[0].innerText="變更西元日期標題"
             }
         }
+        //改變背景顏色
         function chgBackground(){
             let color1="rgb("+rand(1,255)+","+rand(1,255)+","+rand(1,255)+")";
             let color2="rgb("+rand(1,255)+","+rand(1,255)+","+rand(1,255)+")";
             let bgset="background-image:radial-gradient("+color1+","+color2+")";
             document.getElementsByClassName("clockArea")[0].setAttribute('style',bgset)
+        }
+        //新增或更新cookie中的物件資料
+        // function setCookie(key, value,expiryDays){
+            
+        // }
+        // function getCookie(key){
+
+        // }
+        // function deleteCookie(key){
+        //     document.cookie=key+'=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+        // }
+        //鬧鐘資料分更新與新增兩種模式
+    
+        function appendTimer(){
+            let timerForm1=document.forms["timerForm1"];
+            let timerRemark=timerForm1.elements.remark.value;
+            let timerHour=parseInt(timerForm1.elements.hour.value);
+            let timerMinutes=parseInt(timerForm1.elements.minutes.value);
+            if(timerRemark==""|| isNaN(timerHour) || isNaN(timerMinutes)){
+                alert("需選擇設定備註、時間、或格式有錯誤。");
+                return false;
+            }
+            if(!timerUpdate){
+                let id=1;
+                if(timerObject.length==0){
+                    timerObject=[{id:id, remark:timerRemark, hour:timerHour, minutes:timerMinutes,enable:'checked'}];
+                }else{
+                    id=Math.max(...timerObject.map(p=>p.id))+1;
+                    timerObject.push({id:id, remark:timerRemark, hour:timerHour, minutes:timerMinutes,enable:'checked'});
+                }
+            }else{
+                //鬧鐘資料更新模式
+                timerObject[updateIndex]={id:timerObject[updateIndex].id, remark:timerRemark, hour:timerHour, minutes:timerMinutes, enable:timerObject[updateIndex].enable};
+                timerUpdate=false;
+                document.getElementById("addBtn").innerHTML="新增";
+            }
+            setCookie(key,timerObject,30);
+            updateTimerForm();
+            resetForm();
+        }
+
+        //顯示鬧鐘設定的表格資料
+        function updateTimerForm(){
+            let clearTbody=document.getElementById("tbodyId");
+            clearTbody.innerHTML="";
+            for(i=0;i<timerObject.length;i++){
+                lastRow=document.getElementById("tbodyId").rows.length;
+
+                //新增一列
+                tableTr=document.getElementById("tbodyId").insertRow(lastRow);
+                //將timerObject的資料新增到各個欄位
+                tableTr.setAttribute("class","align-middle");
+                td=tableTr.insertCell(tableTr.cells.length);
+                td.innerHTML=timerObject[i].id;
+                td=tableTr.insertCell(tableTr.cells.length);
+                td.innerHTML=timerObject[i].remark;
+                td=tableTr.insertCell(tableTr.cells.length);
+                td.innerHTML=addZero(timerObject[i].hour)+":"+addZero(timerObject[i].minutes);
+                td=tableTr.insertCell(tableTr.cells.length);
+                td.innerHTML='<div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch"'+timerObject[i].enable+' style="float:none;" onchange="chgSwitch('+i+')"><label class="form-check-label">啟動</label></div>';
+                td=tableTr.insertCell(tableTr.cells.length);
+                td.innerHTML='<button type="button" class="btn btn-success" onclick="editTimer('+i+');">修改</button><button type="button" class="btn btn-danger" onclick="delTimer('+i+');">刪除</button>'; 
+            }
+        }
+        //更改鬧鈴設定資料，傳入陣列索引
+        function editTimer(i){
+            let timerForm1=document.forms["timerForm1"];
+            timerForm1.elements.remark.value=timerObject[i].remark;
 
         }
+        //清除表單輸入資料
+        function resetForm(){
+            let timerForm1=document.forms["timerForm1"];
+            timerForm1.reset();
+        }
+
+        //更新鬧鈴設定資料,傳入索引陣列
+        function editTimer(i){
+            let tiemrForm1=document.forms["timerForm1"];
+            timerForm1.elements.remark.value=timerObject[i].remark;
+            timerForm1.elements.hour.value=timerObject[i].hour;
+            timerForm1.elements.minutes.value=timerObject[i].minutes;
+
+            updateIndex=i;
+            timerUpdate=true;
+            document.getElementById("addBtn").innerHTML="儲存";
+        }
+        function delTimer(i){
+            if(window.confirm("確認刪除"+timerObject[i].remark+"鬧鐘設定")){
+                timerObject.splice(i,1);
+                setCookie(key,timerObject,30);
+                updateTimerForm();
+            }
+            return
+        }
+        function chgSwitch(i){
+            if(timerObject[i].enable=='checked'){
+                timerObject[i].enable='';
+            }else{
+                timerObject[i].enable='checked';
+            }
+            setCookie(key,timerObject,30);
+        }
+        function clearTimer(){
+            if(window.confirm("確認清除所有齉中設定")){
+                deleteCookie(key);
+                timerObject=new Array();
+                updateTimerForm();
+                resetForm()
+            }
+            return;
+        }
+
+        
+
+
+
+
     </script>
+    <script src="./cookie.js"></script>
   </body>
 </html>
