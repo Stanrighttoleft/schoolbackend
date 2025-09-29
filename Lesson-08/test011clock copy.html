@@ -30,6 +30,7 @@
         width: 100%;
         height: 600px;
         background-image: radial-gradient(black white);
+
         background-size: cover;
         background-position: 0 50%;
         display: flex;
@@ -70,7 +71,6 @@
         width: 20px;
         top: -5%; /* Y-coordinate of clock center */
         left: 50%; /* X-coordinate of clock center */
-        z-index: 0;
       }
 
       #minute-hand {
@@ -104,13 +104,24 @@
       .digital-clock {
         width: 60%;
         padding: 20px;
-        color: #ffffff;
+        color: red;
         border: 2px solid#999;
         border-radius: 10px;
+        opacity: 80%;
         font-family: "Zeyada", cursive, "Bitcount Prop Double Ink", "Rowdies",
           Arial, Helvetica, sans-serif;
-        font-size: 6vw;
+        font-size: 5vw;
         background-image: linear-gradient(180deg, #000, #555);
+      }
+      .littletrick {
+        position: absolute;
+        background-color: white;
+        width: 280px;
+        height: 300px;
+        border-radius: 50%;
+        top: 30%;
+        left: 33%;
+        z-index: 1;
       }
     </style>
   </head>
@@ -121,7 +132,13 @@
         <div class="card col-sm-8 mx-auto">
           <div class="clockArea">
             <div class="clockimage"></div>
-            <h5 class="digital-title" name="title">Hello world</h5>
+            <div class="littletrick"></div>
+            <h5
+              class="digital-title text-black bg-warning rounded-2 p-1"
+              name="title"
+            >
+              Hello world
+            </h5>
             <div class="digital-clock">00:00:00</div>
             <div class="hand hour" id="hour-hand"></div>
             <div class="hand minute" id="minute-hand"></div>
@@ -130,10 +147,7 @@
 
           <div class="card-body">
             <h5 class="card-title">JS測試：系統小時鐘</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+            <p class="card-text">加了一些效果和功能的小時鐘</p>
             <button class="btn btn-primary">24小時制更換</button>
             <button class="btn btn-success">停止</button>
             <button class="btn btn-warning">隱藏日期標題</button>
@@ -309,7 +323,8 @@
           "second-hand"
         ).style.transform = `rotate(${secondDeg}deg)`;
 
-        let formatStr = addZero(h) + ":" + addZero(m) + ":" + addZero(s);
+        let formatStr =
+          addZero(parseInt(h)) + ":" + addZero(m) + ":" + addZero(s);
 
         // Handle 12/24 format
         if (timeFormat == 12) {
