@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+        <div class="row text-center">
+            <div class="card col-sm-6">
+            <img src="images/chrome_icon.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">瀏覽器資訊</h5>
+                    <p class="card-text" style="text-align:left;"></p>
+                    <button href="#" class="btn btn-primary" onclick="closeInfo()">按我關閉資訊</button>
+                    <button href="#" class="btn btn-secondary" onclick="window.history.go(-1);">按我回上一頁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pCardText=document.querySelector(".card-text");
+        const imgSrc=document.querySelector("img");
+        let txt;
+        txt="瀏覽器版本："+navigator.appName+"<br>";
+        txt+="連覽器代碼名稱："+navigator.appCodeName+"<br>";
+        txt+="瀏覽器版本："+navigator.appVersion+"<br>";
+        txt+="瀏覽器完整版本資訊"+navigator.userAgent+"<br>";
+        txt+="瀏覽器廠商名稱"+navigator.vendor+"<br>";
+        txt+="瀏覽器執行平台(作業系統)："+navigator.platform+"<br>";
+        txt+="瀏覽器所設定語系："+navigator.language+"<br>";
+        pCardText.innerHTML=txt;
+        if(navigator.userAgent.indexOf("Chrome")==-1){
+            imgSrc.src="images/Firefox_logo.webp";
+        }
+        function closeInfo(){
+            window.close();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>

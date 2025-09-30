@@ -312,12 +312,13 @@
             if(timerObject.length !=0){
                 let audio=new Audio('beep.mp3');
                 for(i=0; i<timerObject.length;i++){
-                    if(timerObject[i].hour==h && timerObject[i].minutes==m && timerObject[i].enable){
+                    if(timerObject[i].hour==h && timerObject[i].minutes==m && timerObject[i].enable=='checked'){
                         audio.play();
                         let startAlarm=document.getElementById("bsIcon");
                         startAlarm.style.display="inline";
                         
                         console.log(timerObject)
+                        
                     }else{
                         let startAlarm=document.getElementById("bsIcon");
                         startAlarm.style.display="none";

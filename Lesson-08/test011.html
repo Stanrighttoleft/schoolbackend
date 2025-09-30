@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+        <div class="area position-relative">
+            <h1>Hello, world!</h1>
+            <hr>
+            <button id="btn01" class="btn btn-primary">開瀏覽器訊息</button>
+            <button id="btn02" class="btn btn-success">跳出提示訊息</button>
+            <button id="btn03" class="btn btn-warning">設定標題資訊</button>
+            <button id="btn04" class="btn btn-secondary">導向瀏覽器資訊</button>
+            <button id="btn05" class="btn btn-info">Rock&RollX</button>
+            <button id="btn06" class="btn btn-info">Rock&RollY</button>
+            <div class="mouseEvent">
+                <div>
+                    <h2>100</h2>
+                    <h5>Mouse X Position(px)</h5>
+                </div>
+                <div>
+                    <h2>100</h2>
+                    <h5>Mouse Y Position(px)</h5>
+                </div>
+            </div>
+            <div class="scrollTop">
+                <div>
+                    <h5>Scroll Top(px)</h5>
+                    <h2 id="top">100</h2>
+                </div>
+                <div>
+                    <h5>Available width And Height(px)</h5>
+                    <h2 id="available">100,100</h2>
+                </div>
+                <div class="position-absolute rock"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <style>
+    .container{
+        height: 2160px;
+        background-image: linear-gradient(180deg, #b5ef39,#efefef);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .area{
+        text-align: center;
+        margin-top: 30px;
+        padding: 20px;
+        width: 80%;
+        height: 500px;
+        border: solid 1px red;
+        overflow-x:auto ;
+        overflow: visible;
+    }
+    .mouseEvent, .scrollTop{
+        display: flex;
+        justify-self: center;
+    }
+    .mouseEvent div,.scrollTop div{
+        margin: 30px;width: 200px;height: 120px;border: solid 1px blue;
+        padding-top: 8px;
+    }
+    .rock{
+        width: 1000px;
+        height: 100px;
+        left: 300px;
+        top: 600px;
+        
+        background: skyblue;
+        border: 0px;
+        overflow: auto;
+    }
+  </style>
+  <script>
+    //使用JS選擇網頁的第一個元件
+    const containerEl=document.querySelector(".mouseEvent");
+    const idTop=document.querySelector("#top");
+    const area=document.querySelector(".area");
+    //顯示螢幕的可用範圍
+    let availWidth1=window.screen.availWidth;
+    let availHeight1=window.screen.availHeight;
+    //讀取瀏覽器的寬高
+    let availWidth=window.innerWidth;
+    let availHeight=window.innerHeight;
+    let rock=document.querySelector('.rock')
+    let rockX=300;
+    let rockY=600;
+
+  
+    
+    //初始顯示螢幕可用範圍
+    document.querySelector("#available").innerText=availWidth+","+availHeight;
+    //監聽螢幕改變時的範圍
+    window.addEventListener("resize",(event)=>{
+        availHeight=window.innerHeight;
+        availWidth=window.innerWidth;
+        document.querySelector("#available").innerText=availWidth+","+availHeight;
+
+    })
+    //監聽滑鼠移動時的XY
+    window.addEventListener("mousemove",(event)=>{
+        containerEl.innerHTML=`
+        <div>
+            <h2>${event.clientX}</h2>
+            <h5>Mouse X positions(px)</h5>
+        </div>
+        <div>
+            <h2>${event.clientY}</h2>
+            <h5>Mouse Y positions(px)</h5>
+        </div>
+        `
+    });
+    window.addEventListener("scroll",(event)=>{
+        let positionTop=document.documentElement.scrollTop || document.body.scrollTop;
+        idTop.innerHTML=positionTop;
+    });
+
+    //按btn01先確認是否開啟browserInfo.html
+    document.querySelector("#btn05").onclick=()=>{
+        rockX +=50;
+        rock.style.left=rockX+"px"
+    }
+    document.querySelector("#btn01").onclick=()=>{
+        let confirm=window.confirm("請確認是否開啟新視窗");
+        if(confirm){
+            window.open("browserInfo.html");
+        }
+    }
+    document.querySelector("#btn02").onclick=()=>{
+        window.alert("顯示提示訊息給使用者")
+    }
+    document.querySelector("#btn03").onclick=()=>{
+        let h1Text=document.querySelector("h1").innerText;
+        let h1New=window.prompt("修改標題文字",h1Text);
+        if(h1New){
+            document.querySelector("h1").innerText=h1New;
+        }
+    }
+    document.querySelector("#btn04").onclick=()=>{
+        let confirm=window.confirm("請確認是否導向瀏覽器資訊網頁");
+        if(confirm){
+            window.location.href="browserinfo.html";
+        }
+    }
+  </script>
+
+</html>

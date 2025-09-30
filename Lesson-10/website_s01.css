@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap');
+
+body{
+    font-family: Arial,'Noto Serif TC';
+    font-size: 16px;
+    padding-top: 60px;
+}
+.navbar{
+    padding: 0px;
+    background-color: #c7000A;
+
+}
+.nav-link{
+    color: #fff !important;
+    font-weight: bolder;
+    font-size: 1.5vw;
+}
+.dropdown-item{
+    color: #337ab7;
+    font-size: 1.2vw;
+}
+.dropdown .dropdwon-item:hover,
+.dropdown .dropdown-item:focus{
+    color: #fff !important;
+    background-color: #337ab7;
+}
