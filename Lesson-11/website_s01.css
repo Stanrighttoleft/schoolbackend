@@ -82,3 +82,15 @@ body{
         left: 100%;
     }
 }
+
+.card.text-center.mt-3 img{
+    opacity: 1;
+    transition: opacity 1s ease;
+    -moz-transition: opacity 1s ease;
+    -webkit-transition:opacity 1s ease;
+    -o-transition:opacity 1s ease;
+}
+.card.text-center.mt-3 img:hover{
+    opacity:0.5;
+    border: #e600a0 1px solid;
+}

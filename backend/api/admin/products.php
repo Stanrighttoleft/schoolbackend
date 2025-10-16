@@ -47,6 +47,15 @@ try {
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+     // Process the products to update the image URLs to be relative to the public folder
+    foreach ($products as &$product) {
+        // Ensure the image path is updated to be relative to the public folder
+        if (isset($product['image']) && !empty($product['image'])) {
+            $product['image'] = "/products/small/" . basename($product['image']);
+        }
+    }
+
     echo json_encode([
         "success" => true,
         "products" => $products
