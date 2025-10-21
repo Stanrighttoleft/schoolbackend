@@ -106,3 +106,18 @@ body{
 .breadcrumb a{
     text-decoration: none;
 }
+.col-md-10 nav{
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.card .row.mt-2 .col-md-4 a>img:hover{
+    border:#e600a0 1px solid;
+}
+.color_e600a0{
+    color:#e600a0;
+}
+.color-success{
+    color:#fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
