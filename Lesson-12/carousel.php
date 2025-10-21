@@ -20,8 +20,10 @@
                         while($data=$carousel->fetch()){?>
 
                             <div class="carousel-item <?php echo activeShow($i,0); ?>">
-                                <img src="./product_img/<?php echo $data['caro_pic']; ?>" class="d-block w-100" 
-                                alt="<?php echo $data['caro_title'];?>">
+                                <a href="goods.php?p_id=<?php echo $data['p_id']; ?>">
+                                    <img src="./product_img/<?php echo $data['caro_pic']; ?>" class="d-block w-100" 
+                                    alt="<?php echo $data['caro_title'];?>">
+                                </a>
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5><?php echo $data['caro_title']; ?></h5>
                                     <p><?php echo $data['caro_content']; ?></p>
