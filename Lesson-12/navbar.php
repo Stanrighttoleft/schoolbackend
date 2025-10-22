@@ -5,6 +5,12 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
+            <?php
+            //讀取後台購物車內產品數量
+            $SQLstring="SELECT * FROM cart WHERE orderid is NULL AND ip='".$_SERVER['REMOTE_ADDR']."'";
+            $cart_rs=$link->query($SQLstring);
+            ?>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 
@@ -30,7 +36,7 @@
                 <a class="nav-link" href="#">折價券</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">購物車</a>
+                <a class="nav-link" href="#">購物車<span class="badge text-bg-info"><?php echo($cart_rs) ?$cart_rs->rowCount():''; ?></span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
