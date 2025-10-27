@@ -7,8 +7,6 @@ error_reporting(E_ALL);
 include_once(__DIR__ . "/../../important/db.php");
 include_once(__DIR__ . "/../../important/cors.php");
 include_once(__DIR__ . "/../../important/authStoreowner.php");
-
-
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 // Load .env from the important folder
@@ -16,8 +14,6 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../important');
 $dotenv->load();
 
 header("Content-Type: application/json");
-
-
 
 // Get POST data
 $title = $_POST['title'] ?? '';
@@ -36,8 +32,11 @@ if (!$title || !$price) {
 $imagePath = null;
 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     // Get environment variable or fallback
-    $frontendPublicPath = getenv('FRONTEND_PUBLIC_PATH') ?: 'C:/webdesign/workzone-main/projectweb-vue/public/';
+    $frontendPublicPath = $_ENV['FRONTEND_PUBLIC_PATH'];
     $uploadDir = rtrim($frontendPublicPath, "/\\") . "/products/small/";
+
+    error_log("Upload directory: " . $uploadDir);
+    
 
     if (!is_dir($uploadDir)) {
         if (!mkdir($uploadDir, 0777, true)) {
@@ -53,7 +52,7 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 
     if (move_uploaded_file($tmpName, $targetPath)) {
         // Path relative to the public folder
-        $imagePath = "products/small/" . $imageName; // This path will be accessed publicly
+        $imagePath = "/products/small/" . $imageName; // This path will be accessed publicly
     } else {
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Image upload failed']);
