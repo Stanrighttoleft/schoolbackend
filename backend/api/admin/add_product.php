@@ -32,8 +32,11 @@ if (!$title || !$price) {
 $imagePath = null;
 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     // Get environment variable or fallback
-    $frontendPublicPath = getenv('FRONTEND_PUBLIC_PATH') ?: 'C:/Users/stanl/Desktop/IT3/2025/shoolclass/school/projectweb-vue/public';
+    $frontendPublicPath = $_ENV['FRONTEND_PUBLIC_PATH'];
     $uploadDir = rtrim($frontendPublicPath, "/\\") . "/products/small/";
+
+    error_log("Upload directory: " . $uploadDir);
+    
 
     if (!is_dir($uploadDir)) {
         if (!mkdir($uploadDir, 0777, true)) {

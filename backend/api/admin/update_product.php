@@ -44,7 +44,7 @@ $oldImagePath = $existingProduct['image'] ?? null;
 $imagePath = null;
 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     // Frontend public folder
-    $frontendPublicPath = getenv('FRONTEND_PUBLIC_PATH') ?: 'C:/Users/stanl/Desktop/IT3/2025/shoolclass/school/projectweb-vue/public';
+    $frontendPublicPath = $_ENV['FRONTEND_PUBLIC_PATH'];
     $uploadDir = rtrim($frontendPublicPath, "/\\") . "/products/small/";
 
     if (!is_dir($uploadDir)) {
