@@ -20,9 +20,15 @@
                 <li class="nav-item">
                 <a class="nav-link" href="#">會員註冊</a>
                 </li>
+                <?php if(isset($_SESSION['login'])) { ?>
                 <li class="nav-item">
-                <a class="nav-link" href="#">會員登入</a>
+                    <a class="nav-link" href="javascript:void(0);" onclick="btn_confirmLink('是否確認登出?','logout.php')">會員登出</a>
                 </li>
+                <?php } else { ?>
+                    <li class="nav-item">
+                        <a href="login.php" class="nav-link">會員登入</a>
+                    </li>
+                <?php } ?>
                 <li class="nav-item">
                 <a class="nav-link" href="#">會員中心</a>
                 </li>

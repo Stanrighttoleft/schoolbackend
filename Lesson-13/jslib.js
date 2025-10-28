@@ -1,3 +1,15 @@
+//跳出確定訊對話框
+
+function btn_confirmLink(message,url){
+    if(message==""||url==""){
+        return false;
+    }
+    if(confirm(message)){
+        window.location=url;
+    }
+    return false;
+}
+
 //將產品p_id加入購物車
 function addcart(p_id){
     var qty=$('#qty').val();
