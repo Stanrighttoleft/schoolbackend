@@ -11,14 +11,59 @@ require_once('./Connections/conn_db.php');
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <!-- 引入網頁標頭 -->
-     <?php require_once("headfile.php")?>
-     
+<!-- 引入網頁標頭 -->
+<?php require_once("headfile.php")?>
 </head>
+<!-- 錯誤或成功驗證的CSS -->
+<style>
+span.error-tips,span.error-tips::before{
+  font-family:"Font Awesome 5 Free";
+  color: red;
+  font-weight: 900;
+  content: "\f0c4";
+}
+span.valid-tips,span.valid-tips::before{
+  font-family: "Font Awesome 5 Free";
+  color: greenyellow;
+  font-weight: 900;
+  content: "\f00c";
+}
+</style>
 <body>
-    <section id="header">
-        <?php require_once("navbar.php"); ?>
-    </section>
+<section id="header">
+    <?php require_once("navbar.php"); ?>
+</section>
+
+<?php
+if(isset($_POST['formct']) && $_POST['formct']=='reg'){
+  $email=$_POST['email'];
+  $pw1=md5($_POST['pw1']);
+  $cname=$_POST['cname'];
+  $tssn=$_POST['tssn'];
+  $birthday=$_POST['birthday'];
+  $mobile=$_POST['mobile'];
+  $myZip=$_POST['myZip']=='' ? NULL:$_POST['myZip'];
+  $address=$_POST['address']==''? NULL:$_POST['address'];
+  $imgname=$_POST['uploadname']==''?'avatar.svg': $_POST['uploadname'];
+  $insertsql="INSERT INTO member (email,pw1,cname,tssn,birthday,imgname) VALUES ('".$email."','".$pw1."','".$cname."','".$tssn."','".$birthday."','".$imgname."')";
+  $Result=$link->query($insertsql);
+  if($Result){
+    $emailid=$link->lastInsertId(); //新增會員編號
+    $insertsql="INSERT INTO addbook (emailid,setdefault,cname,mobile,myzip,address) VALUES('".$emailid."','1','".$cname."','".$mobile."','".$myZip."','".$address."')"; //將會員的姓名、電話地址寫入addbook
+    $result=$link->query($insertsql);
+    $_SESSION['login']=true; //設定會員註冊完直接登入，資料存SESSION
+    $_SESSION['emailid']=$emailid;
+    $_SESSION['email']=$email;
+    $_SESSION['cname']=$cname;
+    $_SESSION['imgname']=$imgname;
+    echo "<script>alert('謝謝您，會員資料已完成註冊'); location.href='index.php';</script>";
+  }else{
+    echo "<script>alert('註冊失敗，請重新註冊並連絡管理員。');location.href='register.php';</script>";
+  }
+  
+}
+?>
+
     <section id="content">
         <div class="container-fluid">
             <div class="row">
@@ -100,7 +145,7 @@ require_once('./Connections/conn_db.php');
         </a>
         <input type="text" name="recaptcha" id="recaptcha" class="form-control" placeholder="請輸入驗證碼">
       </div>
-      <input type="hidden" name="formct1" id="formct1" value="reg">
+      <input type="hidden" name="formct" id="formct" value="reg">
       <div class="input-group mb-3">
         <button type="submit" class="btn btn-success btn-lg">送出</button>
       </div>
@@ -120,9 +165,11 @@ require_once('./Connections/conn_db.php');
         <!-- 引入聯絡資訊人模組 -->
             <?php require_once("footer.php"); ?>
     </section>
-        <!-- 引入javascrpt黨 -->
+        <!-- 引入javascrpt-->
             <?php require_once("jsfile.php"); ?>
             <script src="commlib.js"></script>
+        <!-- 引入jquery驗證程式 -->
+            <script src="./jquery.validate.js"></script>
 </body>
 <script>
   $(function(){
@@ -223,7 +270,7 @@ require_once('./Connections/conn_db.php');
   });
   // 上傳過程顯示百分比
   function progressHandler(event){
-    let percent=Math.roung((event.loaded/event.total)*100);
+    let percent=Math.round((event.loaded/event.total)*100);
     $("#progress-bar01").css("width",percent+"%");
     $("#progress-bar01").html(percent+"%");
   }
@@ -248,8 +295,105 @@ require_once('./Connections/conn_db.php');
   function abortHandler(event){
     alert("Uload Aborted:上傳作業取消");
   }
+  // 自訂身分證格式驗證
+  jQuery.validator.addMethod("tssn",function(value,element,param){
+    var tssn=/^[a-zA-Z]{1}[1-2]{1}[0-9]{8}$/;
+    return this.optional(element) || (tssn.test(value));
+  });
+  // 自訂手機格式驗證
+  jQuery.validator.addMethod("checkphone",function(value,element,param){
+    var checkphone=/^[0]{1}[9]{1}[0-9]{8}$/;
+    return this.optional(element) || (checkphone.test(value));
+  });
+  // 自訂郵遞區號驗證
+  jQuery.validator.addMethod("checkMyTown",function(value,element,param){
+    return (value !== "");
+  });
+  // 啟動驗證功能
   $(function(){
-    // 啟動認證碼功能
     getCaptcha();
   })
+  // 驗證form #reg表單
+  $('#reg').validate({
+    rules:{
+      email:{
+        required:true,
+        email:true,
+        remote:'checkemail.php'
+      },
+      pw1:{
+        required:true,
+        maxlength:20,
+        minlength:4,
+      },
+      pw2:{
+        required:true,
+        equalTo:'#pw1'
+      },
+      cname:{
+        required:true,
+      },
+      tssn:{
+        required:false,
+        tssn:true,
+      },
+      birthday:{
+        required:true,
+      },
+      mobile:{
+        required:true,
+        checkphone:true,
+      },
+      address:{
+        required:true,
+      },
+      myTown:{
+        checkMyTown:true,
+      },
+      recaptcha:{
+        required:true,
+        equalTo:'#captcha',
+      },
+    },
+    messages:{
+      email:{
+        required:'email信箱不能空白',
+        email:'email信箱格式有誤',
+        remote:'email信箱已經註冊'
+      },
+      pw1:{
+        required:'密碼不得為空白',
+        maxlength:'密碼最大長度為20位(4-20位英文字母與數字的組合)',
+        minlength:'密碼最小長度為4位(4-20位英文字母與數字的組合)',
+      },
+      pw2:{
+        required:'確認密碼不得為空白',
+        equalTo:'兩次輸入的密碼必須一致！',
+      },
+      cname:{
+        required:'使用者名稱不得為空白',
+      },
+      tssn:{
+        required:'身份證ID不得為空白',
+        tssn:'身份證ID格式有誤',
+      },
+      birthday:{
+        required:'生日不得為空白',
+      },
+      mobile:{
+        required:'手機號碼不得為空白',
+        checkphone:'手機號碼格式有誤',
+      },
+      address:{
+        required:'地址不得為空白',
+      },
+      myTown:{
+        checkMyTown:'需選擇郵遞區號',
+      },
+      recaptcha:{
+        required:'驗證碼不得為空白！',
+        equalTo:'驗證碼需相同！',
+      },
+    },
+  });
 </script>
