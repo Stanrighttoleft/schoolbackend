@@ -1,0 +1,33 @@
+.ecTable {
+    width: 100%;
+    border: 1px solid gray;
+    font-size: 18px;
+    font-weight: bold;
+    color: #009f9f;
+    margin: 5px 0 5px 0;
+}
+
+.ecTable td {
+    border: 1px solid gray;
+    font-size: 14px;
+}
+
+.ecTable .td1 {
+    width: 30%;
+    height: 25px;
+    padding: 5px;
+    line-height: 25px;
+    background-color: #eeeeee;
+    text-align: center;
+    font-weight: bold
+}
+
+.ecTable .td2 {
+    padding: 5px;
+    letter-spacing: 1px;
+    color: #4c4c4c;
+}
+
+.longDesc p {
+    margin-bottom: 16px;
+}
