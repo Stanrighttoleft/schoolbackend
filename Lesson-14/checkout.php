@@ -273,8 +273,8 @@ if($addbook_rs && $addbook_rs->rowCount() !=0){
 <!-- Modal -->
 <?php
 // 取得所有收件人資料
-
-
+$SQLstring=sprintf("SELECT * , city.Name AS ctName,town.Name AS toName FROM addbook,city,town WHERE emailid='%d' AND addbook.myZip=town.Post AND town.AutoNo=city.AutoNo", $_SESSION['emailid']);
+$addbook_rs=$link->query($SQLstring);
 ?>
 
 
@@ -289,15 +289,24 @@ if($addbook_rs && $addbook_rs->rowCount() !=0){
         <form action="">
             <div class="row">
                 <div class="col">
+                 
                     <input type="text" name="cname" class="form-control" placeholder="收件人姓名">
                 </div>
                 <div class="col">
                     <input type="text" name="mobile" id="mobile" class="form-control" placeholder="收件人電話">
                 </div>
                 <div class="col">
+                   
                     <select name="myCity" id="myCity" class="form-control">
                         <option value="">請選擇市區</option>
-                    </select>
+                        <!-- 建立選擇市區的程式 -->
+                        <?php $city="SELECT * FROM `city` WHERE State=0"; $city_rs=$link->query($city);
+                        while($city_rows=$city_rs->fetch()) { ?>
+                          <option value="<?php echo $city_rows['AutoNo']; ?>">
+                            <?php echo $city_rows['Name']; ?>
+                          </option>
+                        <?php } ?>
+                    </select><br>
                 </div>
                 <div class="col">
                     <select name="myTown" id="myTown" class="form-control">
@@ -330,34 +339,24 @@ if($addbook_rs && $addbook_rs->rowCount() !=0){
     </tr>
   </thead>
   <tbody>
+    <!-- 插入收件人資訊到表單中 -->
+     <?php while($data=$addbook_rs->fetch()) { ?>
     <tr>
-        <th scope="row"><input type="radio" name="gridRadios" id="gridRadios" value="4" checked>
+        <th scope="row"><input type="radio" name="gridRadios" id="gridRadios[]" value="<?php echo $data['addressid'] ?>" <?php echo ($data['setdefault']) ? 'checked':'';?>>
         </th>
-        <td>mr</td>
-        <td>number</td>
-        <td>address</td>
+        <td><?php echo $data['cname']; ?></td>
+        <td><?php echo $data['mobile']; ?></td>
+        <td><?php echo $data['myZip'].$data['ctName'].$data['toName'].$data['address']; ?></td>
     </tr>
-    <tr>
-        <th scope="row"><input type="radio" name="gridRadios" id="gridRadios" value="8" >
-        </th>
-        <td>mr</td>
-        <td>number</td>
-        <td>address</td>
-    </tr>
-    <tr>
-        <th scope="row"><input type="radio" name="gridRadios" id="gridRadios" value="9" >
-        </th>
-        <td>mr</td>
-        <td>number</td>
-        <td>address</td>
-    </tr>
+    <?php }?>
+    
   </tbody>
 </table>
 
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+        <button type="button" class="btn btn-primary">儲存變更</button>
       </div>
     </div>
   </div>
@@ -367,3 +366,63 @@ if($addbook_rs && $addbook_rs->rowCount() !=0){
 <div id="loading" name="loading" style="display:none; position:fixed; width:100%; height:100%; top:0; left:0; background-color:rgba(255,255,255,.5);z-index:9999;"><i class="fas fa-spinner fa-spin fa-5x fa-fw" style="position:absolute;top:50%;left:50%;"></i></div>
 </body>
 </html>
+<script>
+  $(function(){
+    //取得縣市代碼後查詢鄉鎮市的名稱
+    $("#myCity").change(function(){
+      var CNo=$('#myCity').val();
+      if(CNo==""){
+        return false;
+      }
+      $('#myZip').val("");
+      $('#add_label').html("郵遞區號：")
+      $.ajax({
+        // 將鄉鎮市的名稱從後台取回
+        url:'Town_ajax.php',
+        type:'post',
+        data:{
+          CNo:CNo,
+        },
+        success:function(data){
+          if(data.c==true){
+            $('#myTown').html(data.m);
+            
+          }else{
+            alert("資料庫回傳錯誤"+data.m)
+          }
+        },
+        error:function(data){
+          alert("系統目前無法連接到後台資料庫")
+        }
+      })
+    });
+    // 取得鄉鎮代碼，查詢郵遞區號放入#myZip,#zipcode
+    $("#myTown").change(function(){
+      var AutoNo=$('#myTown').val();
+      if(AutoNo==''){
+        $('#myZip').val("");
+        $('#add_label').html("");
+        return false;
+      }
+      $.ajax({
+        url:'Zip_ajax.php',
+        type:'get',
+        dataType:'json',
+        data:{
+          AutoNo:AutoNo,
+        },
+        success:function(data){
+          if(data.c==true){
+            $('#myZip').val(data.Post);
+            $('#add_label').html('郵遞區號：'+data.Post +data.Cityname+data.Name);
+          }else{
+            alert("伺服器回傳錯誤:"+data.m);
+          }
+        },
+        error:function(data){
+          alert("系統目前無法連結到後台資料庫");
+        }
+      });
+    });
+  })
+</script>
