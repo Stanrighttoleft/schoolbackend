@@ -36,7 +36,7 @@
                 <a class="nav-link" href="#">最新活動</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">查訂單</a>
+                <a class="nav-link" href="./orderlist.php">查訂單</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">折價券</a>
