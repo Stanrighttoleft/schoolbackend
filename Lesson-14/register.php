@@ -49,7 +49,7 @@ if(isset($_POST['formct']) && $_POST['formct']=='reg'){
   $Result=$link->query($insertsql);
   if($Result){
     $emailid=$link->lastInsertId(); //新增會員編號
-    $insertsql="INSERT INTO addbook (emailid,setdefault,cname,mobile,myzip,address) VALUES('".$emailid."','1','".$cname."','".$mobile."','".$myZip."','".$address."')"; //將會員的姓名、電話地址寫入addbook
+    $insertsql="INSERT INTO addbook (emailid,setdefault,cname,mobile,myZip,address) VALUES('".$emailid."','1','".$cname."','".$mobile."','".$myZip."','".$address."')"; //將會員的姓名、電話地址寫入addbook
     $result=$link->query($insertsql);
     $_SESSION['login']=true; //設定會員註冊完直接登入，資料存SESSION
     $_SESSION['emailid']=$emailid;
