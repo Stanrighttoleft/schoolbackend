@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="myapp">
+      <div class="container">
+        <div class="row">
+<div class="card" class="col-md-8">
+  <img src="./images/news.webp" class="card-img-top" alt="..." :title="picTitle" style="width: 500px;">
+  <div class="card-body">
+    <h5 class="card-title">點外送收「昂貴檢舉罰單」！他認錯 網：外送員的逆襲</h5>
+    <p :class="`card-text ${ctlStyle4}`">近日有網友透露，點了3杯飲料，要求外送上樓，事後就收到昂貴的檢舉罰單，讓他超傻眼。不過，貼文一出，不少網友則認為「違規就沒什麼好說的，認罰吧」。</p>
+    <p class="card-text">一名網友在臉書社團「爆料公社」發文表示，訂了3杯飲料外送，沒想到隔幾天意外收到檢舉單，直呼「原來請土城581外送，會順便送你一張檢舉單，收到2張才發現原來是581拍照檢舉的。」透露檢舉事由為公共空間放鞋櫃。</p>
+    <p class="card-text">貼文一出，不少人紛紛留言<span :style="lineStyle">「不讓外送員送上樓，就沒這問題了」</span>、「可以說說是那個外送員嗎？希望能常來我們這樓晃晃」、「是不是沒電梯不買袋子，又不下去拿」、「外送員送上樓又沒買袋子 所以不爽」、<span :style="lineStyle1">「送單是工作，上樓是被迫，檢舉是權力」</span>；也有人則認為「違規就沒什麼好說的，認罰吧」、「不要違規不就沒事了」、<span :style="lineStyle2">「不用說外送員什麼的其他人都能檢舉好嗎？自己違規就認」。</span></p>
+    <p class="card-text">事實上，根據《公寓大廈管理條例》規定，樓梯間是公共逃生通道，若隨意放置雜物恐影響逃生，且違反法規，若勸導不改，<span :class="ctlStyle">可報請主管機關裁罰新台幣4萬至20萬不等罰鍰。</span></p>
+    <a href="https://tw.news.yahoo.com/%E9%BB%9E%E5%A4%96%E9%80%81%E6%94%B6-%E6%98%82%E8%B2%B4%E6%AA%A2%E8%88%89%E7%BD%B0%E5%96%AE-%E4%BB%96%E8%AA%8D%E9%8C%AF-%E7%B6%B2-%E5%A4%96%E9%80%81%E5%93%A1%E7%9A%84%E9%80%86%E8%A5%B2-014000731.html" class="btn btn-primary">資料來源</a>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+<script>
+  const newVue3=Vue.createApp({
+    data(){
+      return{
+        picTitle:"點外送收「昂貴檢舉罰單」！他認錯 網：外送員的逆襲",
+        lineStyle:"color:red;",
+        lineStyle1:"color:green;",
+        lineStyle2:"color:skyblue",
+        ctlStyle:"ctlStyle",
+        ctlStyle4:"ctlStyle4",
+
+      }
+    }
+  });
+  newVue3.mount('#myapp')
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+  
+</html>
+<style>
+  .ctlStyle{
+    font-size:18px;
+    color:violet;
+  }
+  .ctlStyle4{
+    font-size: 18px;
+    color: cadetblue;
+    font-weight: bolder;
+  }
+</style>
