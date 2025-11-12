@@ -24,6 +24,7 @@
 </div>
 <hr>
 <h1 class="fw-bold mt-3 mb-3">{{message}}</h1>
+<button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="" v-on:click="goodsEdit('');">新增資料</button>
 
 <table class="table table-hover table-bordered">
   <thead>
@@ -37,6 +38,7 @@
       <th scope="col">折扣</th>
       <th scope="col">特價</th>
       <th scope="col">備註</th>
+      <th scope="col">操作</th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -54,6 +56,9 @@
         <p v-else-if="item.discount ==6">6折特價，一件不留</p>
         <p v-else-if="item.discount ==7">7折促銷，老闆做義工</p>
         <p v-else>商品優惠，歡迎購買！</p>
+      </td>
+      <td>
+        <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="" @click="goodsEdit(`${index}`);">修改資料</button>
       </td>
     </tr>
   </tbody>
@@ -145,7 +150,41 @@
           .catch(function(error){
             alert("系統目前無法連接至後台資料庫")
           });
+      },
+      goodsEdit:function(apoint=""){
+        this.arrayIndex=apoint;
+        if(apoint==""){
+          this.mtilte="產品資料新增模式";
+          this.goods={
+            p_id:"",
+            img_file:"",
+            p_name:"",
+            p_intro:"",
+            p_price:"",
+            discount:""
+          }
+        }else{
+          this.mtitle="產品資料修改模式";
+          this.goods={
+            p_id:this.productList[apoint].p_id,
+            img_file:this.productList[apoint].img_file,
+            p_name:this.productList[apoint].p_name,
+            p_intro:this.productList[apoint].p_intro,
+            p_price:this.productList[apoint].p_price,
+            discount:this.productList[apoint].discount
+          }
+        }
+      },
+      
+      goodsSave:function(apoint=""){
+        this.goods.discount=this.rand(1,9);
+        if(apoint==""){
+          this.productList.push(this.goods);
+        }else{
+          this.productList[apoint]=this.goods;
+        }
       }
+    
     },
     mounted(){
       this.getProductInfo();

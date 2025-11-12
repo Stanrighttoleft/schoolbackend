@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/vue@3"></script>
+    <link rel="stylesheet" href="imgviewer.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="myapp" class="card">
+        <div class="row">
+          <div class="col-md-5">
+            <p class="mt-3">{{breadcrumb}}</p>
+          </div>
+          <div class="col-md-3">
+            <p class="mt-3">mount執行次數：{{mountCount}}</p>
+          </div>
+          <div class="col-md-3">
+            <p id="updateShow" class="mt-3">update執行次數：</p>
+          </div>
+        </div>
+        <div class="row g-8">
+          <imgviewer :images="shirtlist"></imgviewer>
+          <!-- <div class="col-md-4 mt-4">
+            <img
+              src="images/shirts8-1.jpg"
+              alt=""
+              title="秀半帶細節襯衫"
+              id="showGoods"
+              class="img-fluid"
+            />
+            <div class="row mt-4">
+              <div class="col-md-4">
+                <a href="images/shirts8-1.jpg"
+                  ><img
+                    src="images/shirts8-1.jpg"
+                    title="袖绊待細節襯衫"
+                    class="img-fluid"
+                    alt=""
+                /></a>
+              </div>
+              <div class="col-md-4">
+                <a href="images/shirts8-1.jpg"
+                  ><img
+                    src="images/shirts8-2.jpg"
+                    title="袖绊待細節襯衫"
+                    class="img-fluid"
+                    alt=""
+                /></a>
+              </div>
+              <div class="col-md-4">
+                <a href="images/shirts8-1.jpg"
+                  ><img
+                    src="images/shirts8-3.jpg"
+                    title="袖绊待細節襯衫"
+                    class="img-fluid"
+                    alt=""
+                /></a>
+              </div>
+            </div>
+          </div> -->
+          <div class="col-md-8">
+            <div class="card-body">
+              <h1 class="card-title">{{title}}</h1>
+              <p class="card-text">價格區塊</p>
+              <div class="row mt-4">
+                <div class="col-md-4">
+                  <div class="input-group input-group-lg">
+                    <span
+                      class="input-group-text bg-primary text-white"
+                      id="inputGroup-sizing-lg"
+                      >數量</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="inpuGroup-sizing-lg"
+                      v-model="qty"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <button
+                    name="button01"
+                    id="button01"
+                    type="button"
+                    class="btn btn-primary"
+                  >
+                    加購物車
+                  </button>
+                  <button
+                    name="button02"
+                    id="button02"
+                    type="button"
+                    class="btn btn-success"
+                    @click="refresh()"
+                  >
+                    標題更新
+                  </button>
+                  <button
+                    class="btn btn-dark"
+                    name="button02"
+                    id="button02"
+                    @click="refresh1()"
+                  >
+                    變數更新
+                  </button>
+                </div>
+              </div>
+              <div class="mt-4">
+                <ol>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                  <li>...</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <button onclick="vueUnmount();" class="btn btn-danger">卸載myapp</button>
+    </div>
+  </body>
+  <script>
+    const newVue3 = Vue.createApp({
+      data() {
+        return {
+          shirtlist: [
+            { link: "shirts8-1.jpg", caption: "something" },
+            { link: "shirts8-2.jpg", caption: "something" },
+            { link: "shirts8-3.jpg", caption: "something" },
+          ],
+          title: "袖绊待細節襯衫",
+          message: "文字訊息",
+          mountCount: 0,
+          updateCount: 0,
+          qty: 1,
+        };
+      },
+      methods: {
+        refresh: function () {
+          //更新標題內容，產生亂數值帶入
+          this.title = "細節襯衫" + this.rand(1, 100);
+        },
+        refresh1: function () {
+          //更新message內容,產生亂數帶入
+          this.message = "更新message變數得內容" + this.rand(1, 100);
+          console.log(this.message);
+        },
+        rand: function (min, max) {
+          if (max < min) return ""; //若max<min回傳空直
+          min = Math.ceil(min); //無條件進位
+          max = Math.floor(max); //無條件捨去
+          const value = Math.random() * (max - min + 1) + min; //設計min-max亂數產生
+          return Math.floor(value);
+        },
+      },
+      beforeCreate() {
+        //console.log('beforeCreate:'this.message'); //讀取data變數訊息
+        //console.log('beforerCreate:'+this.rand(1,10)); //執行methods函數功能
+        this.breadcrumb = "Home>tops>shirt>細節襯衫"; //自訂變數
+      },
+      created() {
+        console.log("create:" + this.message); //讀取data變數訊息
+        console.log("create" + this.rand(1, 10)); //執行methods函數功能
+        //const prontent=document.getElementsByClassName('card-text');測試寫入DOM元件內容
+        //pcontent[0].innerText="NT$1,380";
+      },
+      mounted() {
+        this.mountCount++;
+        const pcontent = document.getElementsByClassName("card-text"); //測試寫入DOM元件內容
+        pcontent[0].innerText = "NT$1,380";
+      },
+      updated() {
+        this.updateCount++;
+        const updateShow = document.getElementById("updateShow");
+        updateShow.innerText = "update執行次數：" + this.updateCount;
+      },
+      unmounted() {
+        console.log("unmounted:" + this.message); //讀取data變數訊息
+        console.log("unmounted:" + this.rand(1, 10)); //執行methods函數功能
+        const updateShow = document.getElementById("updateShow");
+        updateShow.innerText = "Update執行次數：" + this.updateCount;
+      },
+    });
+
+    newVue3.component("imgviewer", {
+      props: ["images"],
+      template: `<div class="col-md-4 mt-4">
+        <img
+          :src="'images/'+photoTop.link"
+          :title="photoTop.caption"
+          class="img-fluid"
+          alt=""
+          name="showGoods"
+          id="showGoods"
+        />
+        <div class="row mt-4">
+          <div class="col-md-4" v-for="(item,index) in photoList">
+            <a
+              :href="'images/'+item.link"
+              @mouseover="photoTop=item"
+              @click="lightBoxOpen(item,index,$event)"
+              ><img
+                :src="'images/'+item.link"
+                :title="item.caption"
+                class="img-fluid"
+                alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+      <div id="overlay" @click.self="closeOverlay">
+        <div class="holder">
+          <img src="" alt="" id="overlay_image" />
+          <div class="nav">
+            <a nohref id="close" @click="closeOverlay"><span>&#10005;</span></a>
+            <a id="prev" nohref @click="cyclePrev"><span>&#8678;</span></a>
+            <a id="next" nohref @click="cycleNext"><span>&#8680;</span></a>
+          </div>
+          <p id="overlay_caption"></p>
+        </div>
+      </div>`,
+      data: function () {
+        return {
+          photoList: [],
+          photoTop: {},
+          imageIndex: 0,
+        };
+      },
+      methods: {
+        lightBoxOpen: function (item, index, event) {
+          event.preventDefault();
+          document.getElementById("overlay_image").src = "images/" + item.link;
+          document.getElementById("overlay_caption").innerHTML = item.caption;
+          document.getElementById("overlay").style.display = "block";
+          this.imageIndex = index;
+        },
+        closeOverlay: function () {
+          document.getElementById("overlay").style.display = "none";
+        },
+        cycleNext: function () {
+          var nextActiveImage = document.querySelectorAll(".col-md-4 a img");
+          if (this.photoList.length > this.imageIndex + 1) {
+            nextActiveImage[this.imageIndex + 1].click();
+          } else {
+            nextActiveImage[0].click();
+          }
+        },
+        cyclePrev: function () {
+          var nextActiveImage = document.querySelectorAll(".col-md-4 a img");
+          if (this.imageIndex == 0) {
+            nextActiveImage[this.photoList.length - 1].click();
+          } else {
+            nextActiveImage[this.imageIndex - 1].click();
+          }
+        },
+      },
+      mounted() {
+        this.photoList = this.images;
+        this.photoTop = this.photoList[0];
+      },
+    });
+
+    newVue3.mount("#myapp");
+    function vueUnmount() {
+      newVue3.unmount();
+    }
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
+</html>

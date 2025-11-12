@@ -14,6 +14,28 @@ if(isset($_GET['mode'])){
         $retcode=array("c"=>"1","m"=>'',"d"=>$data);
       }
       break;
+    case '2':
+      //取得購物車資訊
+      $query="SELECT * FROM cart,product,product_img WHERE ip='".$_SERVER['REMOTE_ADDR']."'AND orderid IS NULL AND cart.p_id=product_img.p_id AND cart.p_id=product.p_id AND product_img.sort=1 ORDER BY cartid DESC";
+      $result=$link->query($query);
+      if($result){
+        $data=$result->fetchAll(PDO::FETCH_CLASS);
+        $retcode=array("c"=>"1","m"=>'',"d"=>$data);
+      }
+      break;
+    case '3':
+      //將購物車變更數量寫回資料庫
+      if(isset($_GET['cartid'])&& isset($_GET['qty'])){
+        $cartid=$_GET['cartid'];
+        $qty=$_GET['qty'];
+        $query=sprintf("UPDATE cart SET qty='%d' WHERE cart.cartid=%d",$qty,$cartid);
+        $result=$link->query($query);
+        if($result){
+          $retcode=array("c"=>"1","m"=>'謝謝您！產品數量已經更新。');
+        }
+      }
+      break;
+      
   }
   echo json_encode($retcode, JSON_UNESCAPED_UNICODE);
 }

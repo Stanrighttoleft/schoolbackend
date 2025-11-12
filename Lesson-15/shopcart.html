@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+      .color_e600a0 {
+        color: #e600a0;
+      }
+      .color_red {
+        color: red;
+      }
+      .table-responsive-md table td {
+        text-align: center;
+      }
+      .table-responsive-md table tfoot td {
+        text-align: center;
+      }
+      .table-responsive-md table tr:hover {
+        background-color: rgb(160, 248, 18);
+      }
+      table input:invalid {
+        border: solid red 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myapp01" class="container">
+      <h3 class="mt-4">電商藥妝：購物車</h3>
+      <div class="table-responsive-md">
+        <table class="table table-hover mt-3">
+          <thead>
+            <tr class="table-warning">
+              <td width="10%">產品編號</td>
+              <td width="10%">圖片</td>
+              <td width="25%">名稱</td>
+              <td width="15%">價格</td>
+              <td width="10%">數量</td>
+              <td width="15%">小計</td>
+              <td width="15%">下次再買</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item,index in cartList">
+              <td>{{item.p_id}}</td>
+              <td>
+                <img
+                  :src="`product_img/${item.img_file}`"
+                  :alt="item.p_name"
+                  :title="item.p_name"
+                  class="img-fluid"
+                  alt=""
+                />
+              </td>
+              <td>{{item.p_name}}</td>
+              <td>
+                <h4 class="color_e600a0 pt-1">${{item.p_price}}</h4>
+              </td>
+              <td style="min-width: 100px">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    v-model="cartList[index].qty"
+                    min="1"
+                    max="49"
+                    required
+                    class="form-control"
+                    @change="changeQty(index);"
+                  />
+                </div>
+              </td>
+              <td>
+                ${{cartList[index].ptotal=item.p_price*cartList[index].qty}}
+              </td>
+              <td>
+                <button id="btn[]" name="btn[]" class="btn btn-danger">
+                  取消
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7">累計：{{Total}}</td>
+            </tr>
+            <tr>
+              <td colspan="7">運費：{{transport}}</td>
+            </tr>
+            <tr>
+              <td colspan="7" class="color_red">
+                總計：{{cartSum=Total+transport}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7" class="color_red">
+                <div class="input-group max-auto" style="width: 50%">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >幣值轉換</label
+                  >
+                  <select
+                    v-model="selected01"
+                    class="form-select"
+                    name=""
+                    id="inputGroupSelect01"
+                  >
+                    <option :value="option.value" v-for="option in options">
+                      {{option.text}},比率：{{option.value}}
+                    </option>
+                  </select>
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly
+                    v-model="natPrice"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <span v-if="spend-Total>0" class="color_e600a0"
+          >*單次累計消費金額大於{{spend}}，將減免運費，育達免運費還需要{{spend-Total}}元。</span
+        ><span v-else class="color_e600a0"
+          >*本累計消費金額：{{Total}}，已經大於{{spend}}，將減免運費。</span
+        >
+      </div>
+    </div>
+  </body>
+  <script>
+    const newVue3 = Vue.createApp({
+      data() {
+        return {
+          cartList: [],
+          options: [
+            { text: "美金USD", value: 31.12 },
+            { text: "港幣HKD", value: 3.857 },
+            { text: "歐元EUR", value: 34.61 },
+            { text: "日幣JPY", value: 0.2819 },
+          ],
+          carSum: 0,
+          natPrice: 0,
+          translate: 31.12,
+          spend: 5999,
+          transport: 100,
+        };
+      },
+      watch: {
+        Total: function (newVal, oldVal) {
+          if (newVal > this.spend) {
+            alert("已達消費門檻，將設定免運費。");
+            this.transport = 0;
+          } else {
+            this.transport = 100;
+          }
+        },
+      },
+      methods: {
+        changeQty: function (index) {
+          axios
+            .get("product.php", {
+              params: {
+                mode: "3",
+                cartid: this.cartList[index].cartid,
+                qty: this.cartList[index].qty,
+              },
+            })
+            .then((res) => {
+              let data = res.data;
+              if (data.c == true) {
+                alert(data.m);
+              } else {
+                alert(data.m);
+              }
+            })
+            .catch(function (error) {
+              alert("系統目前無法連線到後台資料庫");
+            });
+        },
+        getCartInfo: function () {
+          axios
+            .get("product.php", {
+              params: { mode: "2" },
+            })
+            .then((res) => {
+              let data = res.data;
+              if (data.c == true) {
+                this.cartList = data.d;
+              } else {
+                alert(data.m);
+              }
+            })
+            .catch(function (error) {
+              alert("系統目前無法連線到後台");
+            });
+        },
+      },
+      computed: {
+        Total: {
+          get() {
+            let sum = 0;
+            this.cartList.forEach((element) => {
+              sum += element.ptotal;
+            });
+            return sum;
+          },
+        },
+        selected01: {
+          get: function () {
+            this.natPrice =
+              Math.round((this.cartSum / this.translate) * 100) / 100;
+            return this.translate;
+          },
+          set: function (value) {
+            this.natPrice = Math.round((this.cartSum / value) * 100) / 100;
+            this.translate = value;
+          },
+        },
+      },
+
+      mounted() {
+        this.getCartInfo(); //vue框架建立十，即從後端取得購物車資訊
+      },
+    });
+    newVue3.mount("#myapp01");
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
+</html>
