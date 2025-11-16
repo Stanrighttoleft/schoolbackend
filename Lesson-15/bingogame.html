@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/vue@3"></script>
   </head>
   <style>
-    .bingoBall{
+    .bingoBall {
       height: 90px;
       width: 90px;
       float: left;
@@ -25,10 +25,10 @@
       font-weight: bold;
       line-height: 80px;
       font-size: 50px;
-      cursor:pointer;
+      cursor: pointer;
     }
-    #bingoSetting{
-      background-image: url('side01.png');
+    #bingoSetting {
+      background-image: url("side01.png");
       background-repeat: no-repeat;
       text-align: center;
       background-position: 10px 5px;
@@ -37,30 +37,35 @@
     }
   </style>
   <body>
-    <div id="bingoContent" class="container" style="margin-top:2%;">
-      <div class="row" style="border:solid 1px red; min-height:600px;">
-        <div id="bingoArea" class="col-8 col-sm-9" style="border-right:solid 1px red;">
-          <!-- 彩球產生並控制是否動畫 -->
-           <div class="bingoBall" v-for="item in numList" title="點一下刪除我">
-            <span v-if="lastBall==item">{{displayNumber01}}</span>
-            <span v-else>{{item}}</span>
-           </div>
-        </div>
-        <div id="bingoSetting" class="col-4 col-sm-3">
-          <div id="controlBlock" class="mt--4">
+    <div id="bingoContent" class="container" style="margin-top: 2%">
+      <div class="row" style="border: solid 1px red; min-height: 600px">
+        <div id="bingoSetting" class="col-md-3 mb-3">
+          <div id="controlBlock" class="mt-5">
             <div id="gameSetting">
               <!-- 彩球產生範圍 -->
               <div v-if="setRange" class="input-group input-group-sm mt-2">
                 <div class="input-group-prepend">
                   <span class="input-group-text">範圍：1~</span>
                 </div>
-                <input v-model.number="rangeMax" type="number" class="form-control" min="1" style="min-width: 20px;">
+                <input
+                  v-model.number="rangeMax"
+                  type="number"
+                  class="form-control"
+                  min="1"
+                  style="min-width: 20px"
+                />
               </div>
               <div v-if="setMode" class="input-group input-group-sm mt-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text">模式：</div>
                 </div>
-                <select name="" v-model="selMode" id="" class="form-select">
+                <select
+                  name=""
+                  v-model="selMode"
+                  id=""
+                  class="form-select"
+                  @change="SetModeChange();"
+                >
                   <option value="0">手動輸入</option>
                   <option value="1">自動輸入</option>
                 </select>
@@ -70,7 +75,13 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">停止方式：</div>
                 </div>
-                <select v-model="stopMode" name="" id="" class="form-select">
+                <select
+                  v-model="stopMode"
+                  @change="StopModeChanged();"
+                  name=""
+                  id=""
+                  class="form-select"
+                >
                   <option value="0">手動停止搖彩</option>
                   <option value="1">自動停止搖彩</option>
                 </select>
@@ -89,109 +100,296 @@
                 </select>
               </div>
               <div v-if="rightBtn" class="mt-2">
-                <button class="btn btn-success btn-sm" v-on:click="gameInit();">確定開始</button>
+                <button class="btn btn-success btn-sm" v-on:click="gameInit();">
+                  確定開始
+                </button>
               </div>
             </div>
             <!-- 手動輸入彩球方式 -->
-            <div v-if="manualMode" id="manualInput" class="input-group input-group-sm">
+            <div
+              v-if="manualMode"
+              id="manualInput"
+              class="input-group input-group-sm"
+            >
               <div class="input-group-prepend">
                 <span class="input-group-text">號碼：</span>
               </div>
-              <input type="number" v-model.number="valueInput" class="form-control" min="0" style="min-width:20px;"><br>
-              <button class="btn btn-warning btn-sm text-white">輸入彩球</button>
+              <input
+                type="number"
+                v-model.number="valueInput"
+                class="form-control"
+                min="0"
+                style="min-width: 20px"
+              /><br />
+              <button
+                class="btn btn-warning btn-sm text-white"
+                @click="AddBall()"
+              >
+                輸入彩球
+              </button>
             </div>
             <!-- 自動產生彩球的方法 -->
-             <div v-if="autoInput">
-              <button v-if="randStartBtn" class="btn btn-info btn-sm text-white">產生彩球</button>
-              <button v-if="randEndBtn" class="btn btn-danger btn-sm">停止搖彩</button>
-             </div>
-             <div v-if="EnballCount">
-              目前開彩球個數：<span>{{ballCount}}</span><br>
-              預計開採球個數：<span>{{nRange}}</span>
-             </div>
+            <div v-if="autoInput">
+              <div v-if="randStartBtn" class="input-group input-group-sm mt-2">
+                <div v-if="showBallTimes" class="input-group-sm mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">產生彩球次數：</span>
+                  </div>
+                  <input
+                    type="number"
+                    v-model.number="ballTimes"
+                    class="form-control"
+                    min="1"
+                    :max="nRange - ballCount"
+                  />
+                </div>
+              </div>
+              <div v-if="randStartBtn" class="mt-2 text center">
+                <button
+                  v-if="randStartBtn"
+                  class="btn btn-info btn-sm text-white"
+                  @click="RandomValue();"
+                >
+                  產生彩球
+                </button>
+                <button
+                  v-if="randEndBtn"
+                  class="btn btn-danger btn-sm"
+                  @click="StopAnime();"
+                >
+                  停止搖彩
+                </button>
+              </div>
+            </div>
+            <div v-if="EnballCount">
+              目前開彩球個數：<span>{{ballCount}}</span><br />
+              預計開彩球球個數：<span>{{nRange}}</span>
+            </div>
           </div>
           <div v-if="newGame" class="mt-2">
-            <button class="btn btn-primary btn-sm">開新遊戲</button>
+            <button class="btn btn-primary btn-sm" @click="Reload()">
+              開新遊戲
+            </button>
           </div>
-
+        </div>
+        <div
+          id="bingoArea"
+          class="col-md-9"
+          style="border-right: solid 1px red"
+        >
+          <!-- 彩球產生並控制是否動畫 -->
+          <div
+            class="bingoBall"
+            v-for="item,index in numList"
+            :key="index"
+            title="點一下刪除我"
+            @click="delBall(index)"
+          >
+            <span v-if="lastBall==item">{{displayNumber01}}</span>
+            <span v-else>{{item}}</span>
+          </div>
         </div>
       </div>
     </div>
   </body>
   <script>
-    const newVue3=Vue.createApp({
-      data(){
-        return{
-          setRange:true, //設定是否顯示輸入彩球的部分
-          rangeMax:75,  //輸入最大彩球數範圍
-          setMode:true,  //設定是否顯示模式
-          selMode:0,  //0:手動輸入,1:自動輸入
-          autoSetting:false,  //設定是否顯示停止模式 0:手動輸入,1:自動停止
-          stopMode:0, //停止模式0;手動,1:自動停止
+    const newVue3 = Vue.createApp({
+      data() {
+        return {
+          setRange: true, //設定是否顯示輸入彩球的部分
+          rangeMax: 75, //輸入最大彩球數範圍
+          setMode: true, //設定是否顯示模式
+          selMode: 0, //0:手動輸入,1:自動輸入
+          autoSetting: false, //設定是否顯示停止模式 0:手動輸入,1:自動停止
+          stopMode: 0, //停止模式0;手動,1:自動停止
 
-          setanimeTime:false, //設定動畫長度輸入顯示區塊
-          animeTime:1, //自動停止時的動畫長度，單位秒
-          rightBtn:true, //設定是否顯示確定按鈕
+          setanimeTime: false, //設定動畫長度輸入顯示區塊
+          animeTime: 1, //自動停止時的動畫長度，單位秒
+          rightBtn: true, //設定是否顯示確定按鈕
 
-          manualMode:false, //是否為手動輸入模式 true:手動輸入 false:自動生成
-          valueput:'', //要輸入的彩球數字
-          autoInput:false, //設定是否要顯示產生彩球與停止功能
-          randStartBtn:true, //設定是否顯示產生彩球動畫按鈕
-          randEndBtn:false, //設定是否顯示停止動畫按鈕
-          EnballCount:false, //設定是否顯示彩球開的數量
-          newGame:false, //設定是否顯示開新遊戲按鈕
+          manualMode: false, //是否為手動輸入模式 true:手動輸入 false:自動生成
+          valueInput: "", //要輸入的彩球數字
+          autoInput: false, //設定是否要顯示產生彩球與停止功能
+          randStartBtn: true, //設定是否顯示產生彩球動畫按鈕
+          randEndBtn: false, //設定是否顯示停止動畫按鈕
+          EnballCount: false, //設定是否顯示彩球開的數量
+          newGame: false, //設定是否顯示開新遊戲按鈕
           // --以下程式應用變數
-          numList:[], //儲存賓果數字的
-          randAnime:false, //儲存Interval Function用的變數
-          nRange:0,  //計算最大彩球數範圍
-          ballCount:0,  //彩球開的數量
-          tempvar:0, //暫存變數
-          running:false, //是否要跑彩球動畫
-          lastBall:null, //現在螢幕上的最後一顆球
-          autoStop:false, //是否自動停止 true:自動停止 false:手動停止
-
-        }
+          numList: [], //儲存賓果數字的
+          randAnime: false, //儲存Interval Function用的變數
+          nRange: 0, //計算最大彩球數範圍
+          ballCount: 0, //彩球開的數量
+          tempvar: 0, //暫存變數
+          running: false, //是否要跑彩球動畫
+          lastBall: null, //現在螢幕上的最後一顆球
+          autoStop: false, //是否自動停止 true:自動停止 false:手動停止
+          ballTimes: 1, //設定自動產生球的次數
+          showBallTimes: true, //設定產生彩球輸入欄位預設存在
+        };
       },
-      methods:{
-        gameInit:function(){
-          this.nRange=parseInt(this.rangeMax,10);
-          if(isNaN(this.nRange)){
-            // 如果範圍不是數字，則將它設定為預設值75
-            this.nRange=75;
+      methods: {
+        delBall: function (index) {
+          const stopRoll = confirm("要停止搖彩並決定號碼嗎?");
+          if (stopRoll) {
+            this.running = false;
+            return;
           }
-          if(!this.autoSetting){
+
+          const confirmDel = confirm(`要把${this.numList[index]}刪掉嗎?`);
+          if (confirmDel) {
+            this.numList.splice(index, 1);
+          }
+        },
+        StopModeChanged: function () {
+          //開啟或關閉彩球動畫時間設定
+          return this.stopMode == "0"
+            ? (this.setanimeTime = false)
+            : (this.setanimeTime = true);
+        },
+        StopAnime: function () {
+          this.running = false;
+          //顯示彩球產生按鈕並隱藏停止按鈕
+          this.randStartBtn = this.nRange == this.ballCount ? false : true;
+          this.randEndBtn = false;
+        },
+        rand: function (min, max) {
+          //回傳min到max之間的亂數
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1) + min);
+        },
+        getRandBall: function () {
+          do {
+            nInput = this.rand(1, this.nRange);
+            //使用亂數產生一個nRange範圍彩球
+          } while (this.numList.indexOf(nInput) != -1);
+          return nInput;
+        },
+        RandomValue: async function () {
+          this.showBallTimes = false;
+          // 確認是否輸入對的球次數
+          if (
+            this.ballTimes < 1 ||
+            this.ballTimes > this.nRnage - this.ballCount
+          ) {
+            alert(`請輸入1~${this.nRange - this.ballCount}的數字`);
+            this.showBallTimes = ture;
+            return;
+          }
+          this.randStartBtn = false; //隱藏產生彩球按鈕
+          //一顆一顆加球
+          for (let i = 0; i < this.ballTimes; i++) {
+            this.running = true;
+            this.AddBall();
+            await new Promise((resolve) =>
+              setTimeout(resolve, this.animeTime * 1000)
+            );
+          }
+          this.running = false;
+          this.randStartBtn = this.nRange == this.ballCount ? false : true;
+          this.showBallTimes = true;
+        },
+
+        SetModeChange: function () {
+          if (this.selMode == "0") {
+            this.autoSetting == false;
+            this.setanimaeTime = false;
+          } else {
+            this.autoSetting = true;
+          }
+        },
+        Reload: function () {
+          if (
+            window.confirm("此動作會將畫面上的所有號碼清掉\r\n確定開新遊戲?")
+          ) {
+            numList = null;
+            window.location.reload();
+          }
+        },
+        chkNumber: function (newBall) {
+          // 檢查是否為合法範圍1-N，且沒有抽過
+          if (newBall > 0 && newBall <= this.nRange) {
+            if (this.numList.indexOf(newBall) == -1) return true;
+          }
+          return false;
+        },
+        AddBall: function () {
+          if (this.manualMode) {
+            //手動模式才從文字方塊讀取直
+            if (this.chkNumber(this.valueInput)) {
+              sValue = this.valueInput;
+              // 手動模式可以直接將數字插入數列，並將文字方塊清空
+              this.valueInput = "";
+            } else {
+              alert("輸入不正確或你輸入了重複或過大過小的數字！");
+              return false;
+            }
+          } else {
+            sValue = this.getRandBall(); //自動模式，自動產生\new Ball直
+            this.running = true;
+          }
+          this.numList.push(sValue);
+          //將新彩球加入陣列
+          this.ballCount = this.numList.length;
+          //更新總球數
+          this.lastBall = this.numList[this.numList.length - 1];
+          // 存陣列的最後一顆球
+          return true;
+        },
+        gameInit: function () {
+          this.nRange = parseInt(this.rangeMax, 10);
+          if (isNaN(this.nRange)) {
+            // 如果範圍不是數字，則將它設定為預設值75
+            this.nRange = 75;
+          }
+          if (!this.autoSetting) {
             // 若為手動輸入
-            this.manualMode=true; //手動輸入input開啟
-            this.EnballCount=true; //顯示彩球開出狀態
-            this.newGame=true; //開啟(新遊戲)按鈕
-          }else{
-            this.autoInput=true;
-            this.manualMode=false;
-            this.EnballCount=true;
-            this.newGame=true;
-            if(this.stopMode=="1"){
-              this.autoStop=true;  //自動停止設為true
-              this.randEndBtn=false; //不顯示停止按鈕
-              this.animeTime=parseInt(this.animeTime,10); //設定動畫長度
-              if(isNaN(this.animeTime)){
-                this.animeTime=1; //動畫長度非數字時設為預設值1
+            this.manualMode = true; //手動輸入input開啟
+            this.EnballCount = true; //顯示彩球開出狀態
+            this.newGame = true; //開啟(新遊戲)按鈕
+          } else {
+            this.autoInput = true;
+            this.manualMode = false;
+            this.EnballCount = true;
+            this.newGame = true;
+            if (this.stopMode == "1") {
+              this.autoStop = true; //自動停止設為true
+              this.randEndBtn = false; //不顯示停止按鈕
+              this.animeTime = parseInt(this.animeTime, 10); //設定動畫長度
+              if (isNaN(this.animeTime)) {
+                this.animeTime = 1; //動畫長度非數字時設為預設值1
               }
             }
           }
-          this.setRange=false; //彩球範圍input關閉
-          this.setMode=false;  //彩球產生模式關閉
-          this.autoSetting=false; //彩球停止方式關閉
-          this.setanimeTime=false; //彩球動畫輸入關閉
-          this.rightBtn=false; //確認按鈕關閉
+          this.setRange = false; //彩球範圍input關閉
+          this.setMode = false; //彩球產生模式關閉
+          this.autoSetting = false; //彩球停止方式關閉
+          this.setanimeTime = false; //彩球動畫輸入關閉
+          this.rightBtn = false; //確認按鈕關閉
         },
       },
-      computed:{
-
-      }
+      computed: {
+        displayNumber01: {
+          get() {
+            clearInterval(this.randAnime);
+            if (this.running) {
+              // 產生1-99亂數彩球動畫
+              this.randAnime = window.setInterval(
+                function () {
+                  this.tempvar = this.rand(1, this.nRange);
+                }.bind(this),
+                50
+              );
+              return this.tempvar;
+            } else {
+              return this.lastBall;
+            }
+          },
+        },
+      },
     });
-    newVue3.mount('#bingoContent');
+    newVue3.mount("#bingoContent");
   </script>
-  
 
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
