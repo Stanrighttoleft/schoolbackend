@@ -82,7 +82,7 @@
                 ${{cartList[index].ptotal=item.p_price*cartList[index].qty}}
               </td>
               <td>
-                <button id="btn[]" name="btn[]" class="btn btn-danger">
+                <button  class="btn btn-danger" @click="delQty(index)">
                   取消
                 </button>
               </td>
@@ -164,6 +164,30 @@
         },
       },
       methods: {
+        delQty:function(index){
+          if(!confirm("確認要刪除嗎?")){
+            return;
+          }
+          axios
+          .get("product.php",{
+            params:{
+              mode:"4",
+              cartid:this.cartList[index].cartid
+            }
+          })
+          .then((res)=>{
+            let data=res.data;
+            if(data.c==true){
+              alert(data.m);
+              this.cartList.splice(index,1);
+            }else{
+              alert(data.m)
+            }
+          })
+          .catch(function (error) {
+              alert("系統目前無法連線到後台資料庫");
+          });
+        },
         changeQty: function (index) {
           axios
             .get("product.php", {

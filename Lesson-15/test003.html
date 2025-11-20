@@ -178,7 +178,11 @@
         },
       },
       beforeCreate() {
-        //console.log('beforeCreate:'this.message'); //讀取data變數訊息
+        // 當vue要進行mount時，即產生beforeCreate函數的觸發，此時data,methods,DOM都還沒建立，無法使用。
+     
+
+        console.log('beforeCreate:'+this.message); 
+        //讀取data變數訊息
         //console.log('beforerCreate:'+this.rand(1,10)); //執行methods函數功能
         this.breadcrumb = "Home>tops>shirt>細節襯衫"; //自訂變數
       },

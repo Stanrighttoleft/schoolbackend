@@ -35,6 +35,15 @@ if(isset($_GET['mode'])){
         }
       }
       break;
+    case '4':
+      if(isset($_GET['cartid'])){
+        $cartid=$_GET['cartid'];
+        $query=sprintf("DELETE FROM cart WHERE cart.cartid=%d", $cartid );
+        $result=$link->query($query);
+        if($result){
+          $retcode=array("c"=>"1","m"=>"產品已經成功刪除。");
+        }
+      }
       
   }
   echo json_encode($retcode, JSON_UNESCAPED_UNICODE);
