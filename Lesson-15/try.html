@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OpenData Example</title>
+</head>
+<body>
+  <h1>Data List</h1>
+  <ul id="data-list"></ul>
+
+  <script>
+    async function loadData() {
+      const url = "https://datacenter.taichung.gov.tw/swagger/OpenData/5af4b8bf-e9a8-4b77-97ee-189792dbad0b";
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Network error: " + response.status);
+
+        const data = await response.json();
+        console.log(data); // See the structure in the console
+
+        const list = document.getElementById("data-list");
+
+        // Example: if the JSON is an array
+        data.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = JSON.stringify(item);  // Replace with real fields
+          list.appendChild(li);
+        });
+
+      } catch (e) {
+        console.error(e);
+        document.getElementById("data-list").textContent = "Failed to load data.";
+      }
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
